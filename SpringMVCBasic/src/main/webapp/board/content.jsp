@@ -1,12 +1,9 @@
-
 <%@page import="com.academy.springmvcbasic.domain.Notice"%>
-<%@page import="com.academy.springmvcbasic.model.repository.NoticeDAO"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%! NoticeDAO boardDAO = new NoticeDAO(); %>
 <%
-	int board_id = Integer.parseInt(request.getParameter("board_id"));
-	Notice board = boardDAO.select(board_id);
-	%>
+	Notice notice =(Notice) request.getAttribute("notice");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +57,7 @@ input[type=button]:hover {
 <script>
 	function del(){
 		if(confirm("삭제하시겠습니까?")){
-			location.href="/board/delete?board_id=<%=board_id%>";
+			location.href="/board/delete?notice_id=<%=notice.getNotice_id()%>";
 		}
 	}
 	function edit(){
@@ -77,13 +74,13 @@ input[type=button]:hover {
 
 <div class="container">
   <form name="form1">
-  	<input type="hidden" name ="board_id" value="<%=board.getNotice_id() %>">    
-  	<input type="text" name="title" value="<%=board.getTitle()%>">
-    <input type="text"name="writer" value="<%=board.getWriter()%>">
-    <textarea name="content" style="height:200px"><%=board.getContent() %></textarea>
+  	<input type="hidden" name ="notice_id" value="<%=notice.getNotice_id() %>">    
+  	<input type="text" name="title" value="<%=notice.getTitle()%>">
+    <input type="text"name="writer" value="<%=notice.getWriter()%>">
+    <textarea name="content" style="height:200px"><%=notice.getContent() %></textarea>
     
     <input type="button" value="등록" onClick="regist()">
-    <input type="button" value="목록" onClick="location.href='/board/list.jsp'">
+    <input type="button" value="목록" onClick="location.href='/board/list';">
     <input type="button" value="수정" onClick="edit();">
     <input type="button" value="삭제" onClick="del();">
     

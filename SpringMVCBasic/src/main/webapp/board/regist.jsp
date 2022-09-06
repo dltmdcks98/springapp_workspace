@@ -55,7 +55,7 @@ function regist(){
     <input type="text"name="writer" placeholder="작성자 입력">
     <textarea name="content" placeholder="내용작성" style="height:200px"></textarea>
     <input type="button" value="등록" onClick="regist()">
-    <input type="button" value="목록" onClick="location.href='/board/list.jsp'">
+    <input type="button" value="목록" onClick="location.href='/board/list'">
   </form>
 </div>
 
