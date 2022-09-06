@@ -14,10 +14,28 @@
 	이를 대행해줄 객체인 HandlerMapping객체 중 개발자가 원하는 빈을 등록하면 된다.)
 	참고로 개발자가 아무것도 등록하지 않으면, DefaultAnnotationHandlerMapping이 적용된다. -->
 	<beans:bean id="handlerMaping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		
+	 	<beans:property name="mappings">
+	 		<beans:props>
+	 			<beans:prop key="/board/list">noticeListController</beans:prop>
+	 		</beans:props>
+	 	</beans:property>
 	</beans:bean>
 	
-
+	<!-- DAO등록 -->
+	<beans:bean id="noticeDAO" class="com.academy.springmvcbasic.model.repository.NoticeDAO" />
+		
+	
+	<!-- 일할 하위 컨트롤러 빈 추가  여기에 빈으로 추가된 객체들은 ,Spring 컨테이너에 의해 인스턴스가 생성 및 관리  -->
+	<beans:bean id="noticeListController" class="com.academy.springmvcbasic.controller.NoticeListController">
+		<beans:property name="noticeDAO" ref="noticeDAO"/>
+	</beans:bean>
+	
+	<!--하위 컨트롤러들이 반환하는 뷰의 이름을 가지고, 실제 jsp를 조합하여 DispatcherServlet에게 반환해주는
+	객체를 가리켜 ViewResolver라 하고, 개발자는 이 ViewResolver중에 하나를 선택하며 빈으로 등록해야한다. -->
+	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/" /><!-- 접두어 -->
+		<beans:property name="suffix" value=".jsp" /><!-- 접미어 -->
+	</beans:bean>
 
 
 </beans:beans>
