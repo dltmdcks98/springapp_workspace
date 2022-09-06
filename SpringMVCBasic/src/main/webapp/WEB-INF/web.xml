@@ -6,8 +6,8 @@
 		<servlet-name>frontServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
-			<param-name></param-name>
-			<param-value>WEB-INF/front-servlet.xml</param-value>
+			<param-name>contextConfigLocation</param-name><!-- 정해져 있는 변수 -->
+			<param-value>WEB-INF/front-servlet.xml</param-value><!--controller을 구별하기 위해 사용되는 if문을 없애기 위해 만든 xml 파일  -->
 		</init-param>
 	</servlet>
 	<servlet-mapping>
