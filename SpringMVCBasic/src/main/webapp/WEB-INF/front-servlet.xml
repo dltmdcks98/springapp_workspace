@@ -20,6 +20,7 @@
 	 			<beans:prop key="/board/regist">noticeRegistController</beans:prop>
 	 			<beans:prop key="/board/content">noticeContentController</beans:prop>
 	 			<beans:prop key="/board/edit">noticeEditController</beans:prop>
+	 			<beans:prop key="/board/delete">noticeDeleteController</beans:prop>
 	 			
 	 		</beans:props>
 	 	</beans:property>
@@ -45,6 +46,10 @@
 	</beans:bean>
 	
 	<beans:bean id="noticeEditController" class="com.academy.springmvcbasic.controller.noticeEditController">
+		<beans:property name="noticeDAO" ref="noticeDAO"/>
+	</beans:bean>
+	
+	<beans:bean id="noticeDeleteController" class="com.academy.springmvcbasic.controller.noticeDeleteController">
 		<beans:property name="noticeDAO" ref="noticeDAO"/>
 	</beans:bean>
 	
