@@ -1,4 +1,9 @@
+<%@page import="com.academy.springmvcsimple.domain.Emp"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%
+	List<Emp> memberlist =(List) request.getAttribute("memberList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,15 +46,17 @@
 							</tr>
 						</thead>
 						<tbody>
+						<%for(Emp emp : memberlist){//개선된 for문%>
 							<tr>
-								<td>183</td>
-								<td>John Doe</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td><span class="tag tag-success">Approved</span></td>
-								<td>.</td>
+								<td><%= emp.getEmpno() %></td>
+								<td><%= emp.getEname() %></td>
+								<td><%= emp.getSal() %></td>
+								<td><%= emp.getHiredate() %></td>
+								<td><%= emp.getDept().getDeptno() %></td>
+								<td><%= emp.getDept().getDname() %></td>
+								<td><%= emp.getDept().getLoc() %></td>
 							</tr>
+							<%} %>
 						</tbody>
 					</table>
 				</div>

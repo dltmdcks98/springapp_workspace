@@ -32,7 +32,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List selectAll() {
-		return null;
+		return empDAO.selectAll();
 	}
 
 	@Override

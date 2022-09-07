@@ -1,5 +1,7 @@
 package com.academy.springmvcsimple.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.academy.springmvcsimple.domain.Emp;
-import com.academy.springmvcsimple.model.member.DeptDAO;
-import com.academy.springmvcsimple.model.member.EmpDAO;
 import com.academy.springmvcsimple.model.member.MemberService;
 
 @Controller
@@ -39,6 +39,17 @@ public class MemberController {
 		
 		memberService.regist(emp);//부서 + 사원 등록 업무가 추상화 되어 표현
 		
-		return null;
+		return new ModelAndView("redirect:/member/list");
+	}
+	
+//	사원 목록 요청 처리
+	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
+	public ModelAndView selectAll() {
+		List memberList=memberService.selectAll();//3단계 일시키기
+		ModelAndView mav= new ModelAndView();
+		mav.addObject("memberList",memberList);//4단계 :결과 저장
+		mav.setViewName("member/list");//포워딩
+
+		return mav;
 	}
 }

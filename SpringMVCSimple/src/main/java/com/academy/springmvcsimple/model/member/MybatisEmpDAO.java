@@ -26,7 +26,13 @@ public class MybatisEmpDAO implements EmpDAO{
 
 	@Override
 	public List selectAll() {
-		return null;
+		List list = null;
+		SqlSession sqlSession = manager.getSqlSession();
+		list = sqlSession.selectList("Emp.selectAll");
+		System.out.println("list : "+list.size());
+		manager.closeSqlSession(sqlSession);
+		
+		return list;
 	}
 
 	@Override
