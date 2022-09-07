@@ -4,14 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- Google Font: Source Sans Pro -->
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="/resources/admin/plugins/fontawesome-free/css/all.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/resources/admin/dist/css/adminlte.min.css">
+<%@ include file="/inc/header.jsp" %>
 </head>
 <body>
 	<div class="card card-info">
@@ -60,17 +53,8 @@
 		</form>
 	</div>
 	<!-- /.card -->
-	<!-- jQuery -->
-	<script src="/resources/admin/plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
-	<script
-		src="/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- bs-custom-file-input -->
-	<script
-		src="/resources/admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="/resources/admin/dist/js/adminlte.min.js"></script>
 
+<%@ include file="/inc/footer.jsp" %>
 	<!-- Page specific script -->
 	<script>
 		$(function() {
