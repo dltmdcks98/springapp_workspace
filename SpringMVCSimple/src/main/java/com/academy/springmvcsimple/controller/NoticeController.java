@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.academy.springmvcsimple.domain.Notice;
 import com.academy.springmvcsimple.model.repository.NoticeDAO;
 
 /*
@@ -24,7 +26,7 @@ public class NoticeController {
 
 	
 //	목록요청 처리 메서드 : 어떤 요청에 대해 이 메서드가 작동할지 매핑을 표현
-	@RequestMapping(value="/board/list")
+	@RequestMapping(value="/board/list" , method = RequestMethod.GET)
 	public String selectAll(Model model) {
 		System.out.println(noticeDAO);
 		List boardList = noticeDAO.selectAll();//3단계
@@ -32,11 +34,41 @@ public class NoticeController {
 		
 		return "board/list";
 	}
-//	글쓰기 요청 처리 메소드
 	
 //	글 내용 보기 요청 처리 메서드
+	@RequestMapping(value="/board/content",method = RequestMethod.GET)
+	public ModelAndView select(int notice_id) {//String도 상관 없음 파라미터와 매개변수가 이름이 같아야 값이 자동으로 넘어옴 
+		//spring 3.0 부터는 파라미터를 받기위해 request 객체를 굳이 명시할 필요없이, 파라미터명과 메서드의 매개변수명이 일치할 경우 자동 매핑이 이루어진다.
+		System.out.println("notice_id :" +notice_id);
+		
+		//3단계 : 일 시킨다.
+		Notice notice=noticeDAO.select(notice_id);
+		//4단계 : 결과 저장
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("notice",notice);
+		mav.setViewName("board/content");
+		return mav;
+	}
+//	삭제 처리 메서드
+	@RequestMapping(value="/board/delete", method = RequestMethod.GET)
+	public String delete(int notice_id) {
+		noticeDAO.delete(notice_id);
+		return "redirect:/board/list";//재접속
+	}
+	
+	//	글쓰기 요청 처리 메소드
+	@RequestMapping(value="/board/regist", method = RequestMethod.POST)
+	public String insert(Notice notice) {
+		int result = noticeDAO.insert(notice);//일시키기
+		
+		return "redirect:/board/list";
+	}
 	
 //	수정 요청 처리 메서드
-	
-//	삭제 처리 메서드
+	@RequestMapping(value = "/board/edit", method = RequestMethod.POST)
+	public ModelAndView edit(Notice notice) {
+		noticeDAO.update(notice);
+		
+		return new ModelAndView("redirect:/board/content?notice_id="+notice.getNotice_id());
+	}
 }
