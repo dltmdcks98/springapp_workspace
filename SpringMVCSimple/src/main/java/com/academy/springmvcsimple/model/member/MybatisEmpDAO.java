@@ -37,7 +37,10 @@ public class MybatisEmpDAO implements EmpDAO{
 
 	@Override
 	public Emp select(int empno) {
-		return null;
+		Emp emp = null;
+		SqlSession sqlSession = manager.getSqlSession();
+		emp= sqlSession.selectOne("Emp.select",empno);
+		return emp;
 	}
 
 	@Override

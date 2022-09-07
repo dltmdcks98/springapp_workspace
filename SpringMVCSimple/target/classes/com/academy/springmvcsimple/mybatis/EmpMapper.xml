@@ -26,4 +26,8 @@
 <select id="selectAll" resultMap="empMap">
 	select empno, ename, sal, hiredate, deptno from emp
 </select>
+
+<select id="select" resultMap="empMap" parameterType="int">
+	select empno, ename, sal, hiredate, deptno from emp where empno=#{empno}
+</select>
 </mapper>

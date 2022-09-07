@@ -37,7 +37,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Emp select(int empno) {
-		return null;
+		return empDAO.select(empno);
 	}
 
 	@Override

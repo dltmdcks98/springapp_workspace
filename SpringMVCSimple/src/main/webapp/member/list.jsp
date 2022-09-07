@@ -49,7 +49,7 @@
 						<%for(Emp emp : memberlist){//개선된 for문%>
 							<tr>
 								<td><%= emp.getEmpno() %></td>
-								<td><%= emp.getEname() %></td>
+								<td><a href="/member/detail?empno=<%=emp.getEmpno()%>"><%= emp.getEname() %></a></td>
 								<td><%= emp.getSal() %></td>
 								<td><%= emp.getHiredate() %></td>
 								<td><%= emp.getDept().getDeptno() %></td>
