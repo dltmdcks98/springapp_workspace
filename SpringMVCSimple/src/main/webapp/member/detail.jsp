@@ -32,6 +32,13 @@
 					</div>
 				</div>
 				<div class="form-group row">
+					<label for="inputPassword3" class="col-sm-2 col-form-label">입사일</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name ="hiredate"
+							placeholder="입사일"  value="<%=emp.getHiredate()%>">
+					</div>
+				</div>
+				<div class="form-group row">
 					<label for="inputPassword3" class="col-sm-2 col-form-label">희망 부서</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" name="dept.dname" placeholder="희망부서"  value="<%=emp.getDept().getDname()%>">
@@ -48,7 +55,9 @@
 			</div>
 			<!-- /.card-body -->
 			<div class="card-footer">
-				<button type="button" class="btn btn-danger">목록보기</button>
+				<button type="button" class="btn btn-danger" onClick="location.href='/member/list';">목록보기</button>
+				<button type="button" class="btn btn-danger" onClick="edit();">수정</button>
+				<button type="button" class="btn btn-danger" onClick="del();">삭제</button>
 				<button type="submit" class="btn btn-default float-right">Cancel</button>
 			</div>
 			<!-- /.card-footer -->
@@ -59,16 +68,18 @@
 <%@ include file="/inc/footer.jsp" %>
 	<!-- Page specific script -->
 	<script>
-		$(function() {
-			// bsCustomFileInput.init();
-			$("button[type='button']").click(function(){
-				$(".form-horizontal").attr({
-					action:"/member/list",
-					method:"get"
-				});
-				$(".form-horizontal").submit();
-			});
-		});
+	function edit(){
+		if(confirm("수정하시겠어요?")){
+			form1.action = "/member/edit";
+			form1.method = "post";
+			form1.submit();
+		}
+	}
+	function del(){
+		if(confirm("삭제?")){
+			location.href="/member/delete?notice_id=<%=emp.getEmpno()%>";
+		}
+	}
 	</script>
 </body>
 </html>

@@ -61,11 +61,13 @@
 					</table>
 				</div>
 				<!-- /.card-body -->
+
 			</div>
 			<!-- /.card -->
 		</div>
 	</div>
 	<!-- /.row -->
 	<%@ include file="/inc/footer.jsp" %>
+
 </body>
 </html>

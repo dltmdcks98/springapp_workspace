@@ -52,10 +52,11 @@ public class MemberController {
 
 		return mav;
 	}
-	
+//	사원 정보 가져오기 한건
 	@RequestMapping(value = "/member/detail", method = RequestMethod.GET)
 	public ModelAndView select(int empno) {
 		Emp emp = memberService.select(empno);
+		
 		ModelAndView mav= new ModelAndView();
 		mav.addObject("emp", emp);
 		mav.setViewName("member/detail");
