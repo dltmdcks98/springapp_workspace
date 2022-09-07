@@ -13,6 +13,9 @@
 <!-- controller가 메모리에 올라옴 -->
 		<context:component-scan base-package="com.academy.springmvcsimple" />
 		
+<!-- 정적 자원 mapping은 마음대로,/**은 내부의 모든 자원 -->
+<resources location="/resources/" mapping="/resources/**"></resources>
+		
 <!-- View매핑을 담당해주는 ViewResolver를 등록, 이때 우리가 선택한 ViewResolver는 InternalResourceViewResolver이고, 
 얘는 접두어,접미어 조합을 이용하므로 최종적으로 jsp경로를 반환 -->
 <beans:bean 
