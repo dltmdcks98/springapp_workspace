@@ -11,6 +11,7 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 <!-- controller가 메모리에 올라옴 -->
+		<annotation-driven />
 		<context:component-scan base-package="com.academy.springmvcsimple" />
 		
 <!-- 정적 자원 mapping은 마음대로,/**은 내부의 모든 자원 -->

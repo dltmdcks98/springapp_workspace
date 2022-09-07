@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.academy.springmvcsimple.domain.Notice;
-import com.academy.springmvcsimple.model.repository.NoticeDAO;
+import com.academy.springmvcsimple.model.notice.NoticeDAO;
 
 /*
  * SpringMVCBasic과는 달리 하나의 게시판에 사용되는 컨트롤러를 매기능 마다 

@@ -1,4 +1,4 @@
-package com.academy.springmvcsimple.model.repository;
+package com.academy.springmvcsimple.model.notice;
 
 import java.util.List;
 
