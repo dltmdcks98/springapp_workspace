@@ -11,7 +11,11 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 <!-- controller가 메모리에 올라옴 -->
+		<!-- 정의한 객체 중 싱글톤으로 정의한 객체를 빈으로 등록  -->
 		<annotation-driven />
+		<beans:bean id="mybatisConfigManager" class="com.academy.springmvcsimple.mybatis.MybatisConfigManager" factory-method="getInstance"/>
+		
+				
 		<context:component-scan base-package="com.academy.springmvcsimple" />
 		
 <!-- 정적 자원 mapping은 마음대로,/**은 내부의 모든 자원 -->

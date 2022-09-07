@@ -42,6 +42,14 @@
 						<input type="text" class="form-control" name="dept.dname" placeholder="희망부서">
 					</div>
 				</div>
+				
+				<div class="form-group row">
+					<label for="inputPassword3" class="col-sm-2 col-form-label">부서 위치</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="dept.loc" placeholder="부서 위치">
+					</div>
+				</div>
+				
 			</div>
 			<!-- /.card-body -->
 			<div class="card-footer">

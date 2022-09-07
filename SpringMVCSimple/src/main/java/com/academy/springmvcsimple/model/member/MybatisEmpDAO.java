@@ -6,18 +6,19 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.academy.springmvcsimple.domain.Dept;
+import com.academy.springmvcsimple.domain.Emp;
 import com.academy.springmvcsimple.mybatis.MybatisConfigManager;
-
 @Repository
-public class MybatisDeptDAO implements DeptDAO{
-@Autowired
-MybatisConfigManager manager;
+public class MybatisEmpDAO implements EmpDAO{
+	
+	@Autowired
+	MybatisConfigManager manager;
+	
 	@Override
-	public int insert(Dept dept) {
+	public int insert(Emp emp) {
 		int result =0;
 		SqlSession sqlSession = manager.getSqlSession();
-		result = sqlSession.insert("Dept.insert",dept);
+		result = sqlSession.insert("Emp.insert",emp);
 		sqlSession.commit();
 		manager.closeSqlSession(sqlSession);
 		return result;
@@ -25,25 +26,21 @@ MybatisConfigManager manager;
 
 	@Override
 	public List selectAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Dept select(int deptno) {
-		// TODO Auto-generated method stub
+	public Emp select(int empno) {
 		return null;
 	}
 
 	@Override
-	public int update(Dept dept) {
-		// TODO Auto-generated method stub
+	public int update(Emp emp) {
 		return 0;
 	}
 
 	@Override
-	public int delete(int deptno) {
-		// TODO Auto-generated method stub
+	public int delete(int empno) {
 		return 0;
 	}
 	
