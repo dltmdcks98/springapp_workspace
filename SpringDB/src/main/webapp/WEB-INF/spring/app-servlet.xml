@@ -17,7 +17,7 @@
 	 	resource-rf : java:comp/env를 사용하여 검색함
 	 	어떤 db를 쓸지 알려주는 것 
 	  -->
-	<jee:jndi-lookup 
+<!-- 	<jee:jndi-lookup 
 	id="dataSource" 
 	jndi-name="jdbc/myoracle" 
 	resource-ref="true"/>
@@ -25,7 +25,9 @@
 	<beans:bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
-
+	
+	root.xml로 이동
+ -->
 	<!-- ViewResolver 등록 -->
 	<beans:bean id="viewResolver" 
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -36,7 +38,9 @@
 	<!-- 컨트롤러를 어노테이션으로 생성 및 관리하고자 할때 이 태그를 등록해야함 -->
 	<annotation-driven />
 
-	<!-- base-package에 소속된 모든 클래스는 인스턴스의 scan대상이 된다. -->
-	<context:component-scan base-package="com.academy.springdb" />
+	<!-- base-package에 소속된 모든 클래스는 인스턴스의 scan대상이 된다. 단 REST를 적용하는 것 빼고 -->
+	<context:component-scan base-package="com.academy.springdb.controller" >
+		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
+	</context:component-scan>
 	
 </beans:beans>

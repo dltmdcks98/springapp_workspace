@@ -20,6 +20,17 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+<!-- 	어플리케이션에서 사용될 bean들 중 특히 모델 영역의 bean들은 여러 서블릿에서 공통적으로 사용할 로직이므로,
+	어떠한 서블릿에서도 접근할 수 있는 영역에서 관리되어야한다. 스프링에서는 이 bean들을 application 내장객체의 전신인
+	ServletContext 에서 관리하게 하여, 서블릿간 공유가 가능하도록 했다. 서블릿끼리는 서로 접근할 수 없다. -->
+	<!--Tomcat이 실행될때를 잡는 객체 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/root.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 	
 	<!-- 일반 요청에 대한 서블릿 : 요청 결과를 html로 출력시 사용할 예정 -->
 

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.academy.springdb.exception.NewsException;
@@ -16,6 +18,13 @@ public class NewsContoller {
 	
 	@Autowired
 	private NewsService newsService;
+	
+	@GetMapping("/rest")
+	@ResponseBody
+	public String test() {
+//		데이터만 보낼 때는 
+		return "하이";
+	}
 	
 	@GetMapping("/news/list")
 	public ModelAndView selectAll() {
