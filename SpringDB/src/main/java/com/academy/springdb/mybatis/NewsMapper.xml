@@ -20,6 +20,9 @@
 		select * from news order by news_id desc 
 	</select>
 
-
+	<insert id="insert" parameterType="News">
+		insert into news(news_id, title, writer, content)
+		values(seq_news.nextval,#{title},#{writer},#{content})
+	</insert>
 
 </mapper>
