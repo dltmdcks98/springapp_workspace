@@ -1,12 +1,12 @@
 package com.academy.springdb.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.academy.springdb.exception.NewsException;
@@ -19,17 +19,15 @@ public class NewsContoller {
 	@Autowired
 	private NewsService newsService;
 	
-	@GetMapping("/rest")
-	@ResponseBody
-	public String test() {
-//		데이터만 보낼 때는 
-		return "하이";
-	}
-	
 	@GetMapping("/news/list")
 	public ModelAndView selectAll() {
 		System.out.println("클라이언트의 요청 감지");
-		return null;
+		
+		List newsList = newsService.selectAll();
+		ModelAndView mav= new ModelAndView("/news/list");
+		mav.addObject("newsList",newsList);
+		
+		return mav;
 	}
 	
 	//글쓰기 폼 요청

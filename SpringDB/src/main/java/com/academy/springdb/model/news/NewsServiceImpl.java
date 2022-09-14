@@ -18,8 +18,7 @@ public class NewsServiceImpl  implements NewsService{
 	
 	@Override
 	public List selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return newsDAO.selectAll();
 	}
 
 	@Override
