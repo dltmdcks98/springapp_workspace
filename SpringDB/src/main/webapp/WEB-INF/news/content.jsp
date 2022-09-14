@@ -1,7 +1,7 @@
 <%@page import="com.academy.springdb.model.domain.News"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-	News news = (News) request.getAttribute("content");
+	News news = (News) request.getAttribute("news");
 	
 %>
 <!DOCTYPE html>

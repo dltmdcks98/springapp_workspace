@@ -34,7 +34,7 @@ public class NewsContoller {
 	public ModelAndView select(int news_id) {
 		News news = newsService.select(news_id);
 		ModelAndView mav = new ModelAndView("news/content");
-		mav.addObject("content", news);
+		mav.addObject("news", news);
 		
 		return mav;
 	}
