@@ -29,7 +29,15 @@ public class NewsContoller {
 		
 		return mav;
 	}
-	
+	//글 상세 보기 
+	@GetMapping("/news/content")
+	public ModelAndView select(int news_id) {
+		News news = newsService.select(news_id);
+		ModelAndView mav = new ModelAndView("news/content");
+		mav.addObject("content", news);
+		
+		return mav;
+	}
 	//글쓰기 폼 요청
 	@GetMapping("/news/registform")
 	public ModelAndView registForm() {
@@ -44,6 +52,8 @@ public class NewsContoller {
 		return null;
 	}
 	
+
+	
 	//스프링 MVC 컨트롤러의 메서드들 중에서 예외가 발생할때 이 예외를 처리할 메서드를 지원해준다. 
 	@ExceptionHandler(NewsException.class)
 	public ModelAndView handleException(NewsException e) {
@@ -53,4 +63,7 @@ public class NewsContoller {
 		mav.addObject("msg",e.getMessage());
 		return mav;
 	}
+	
+	
+	
 }

@@ -24,5 +24,9 @@
 		insert into news(news_id, title, writer, content)
 		values(seq_news.nextval,#{title},#{writer},#{content})
 	</insert>
-
+	
+	<select id="select" resultType="News" parameterType="int">
+		select * from news where news_id=#{news_id}
+	</select>
+	
 </mapper>

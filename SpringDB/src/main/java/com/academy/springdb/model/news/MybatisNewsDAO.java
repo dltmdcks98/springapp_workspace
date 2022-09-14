@@ -24,8 +24,8 @@ public class MybatisNewsDAO implements NewsDAO{
 
 	@Override
 	public News select(int news_id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return sqlSessionTemplate.selectOne("News.select", news_id);
 	}
 
 	@Override
