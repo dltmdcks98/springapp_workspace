@@ -13,7 +13,8 @@ import com.academy.springdb.model.domain.News;
 public class NewsServiceImpl  implements NewsService{
 
 	@Autowired
-	@Qualifier("jdbcNewsDAO")
+	//밑에 부분만 바꾸면 jdbc,mybatis 등으로 변경 
+	@Qualifier("mybatisNewsDAO")
 	private NewsDAO newsDAO;
 	
 	@Override

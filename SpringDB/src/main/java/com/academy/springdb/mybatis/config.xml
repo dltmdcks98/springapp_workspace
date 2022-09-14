@@ -5,8 +5,10 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.academy.springdb.model.domain.News" alias="News"/>
+		<typeAlias type="com.academy.springdb.model.domain.Comments" alias="Comments"/>
 	</typeAliases>
   <mappers>
     <mapper resource="com/academy/springdb/mybatis/NewsMapper.xml"/>
+    <mapper resource="com/academy/springdb/mybatis/CommentsMapper.xml"/>
   </mappers>
 </configuration>

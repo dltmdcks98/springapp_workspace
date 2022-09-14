@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="News">
+	
+	<resultMap type="News" id="newsMap">
+		<id column="news_id" 		property="news_id"/>
+		<result column="title" 		property="title"/>
+		<result column="writer" 	property="writer"/>
+		<result column="content" 	property="content"/>
+		<result column="regdate" 	property="regdate"/>
+		<result column="hit" 		property="hit"/>
+		<collection column="news_id" property="commentsList" javaType="java.util.List" ofType="Comments" select="Comments.selectAllByNewsId"/>
+	</resultMap>
+
+
+<!-- 기존에는 자식에서 부모를 끌어왔지만 지금은 부모에서 자식을 끌어옴  
+	association을 이용하는 것이 아니라, 하나의 뉴스기사에 딸려있는  모든 자식을 가져와보자 (1:다)
+	collection을 이용한다는 것 -->
+	<select id="selectAll" resultMap="newsMap">
+		select * from news order by news_id desc 
+	</select>
+
+
+
+</mapper>
