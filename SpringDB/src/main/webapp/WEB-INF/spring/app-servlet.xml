@@ -5,12 +5,28 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jee="http://www.springframework.org/schema/jee"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd">
 
-	<!-- 뷰리절버 등록 -->
+	<!-- 데이터베이스 연동 관련 -->
+	 <!-- 데이터 소스 dataSource 결정
+	 	resource-rf : java:comp/env를 사용하여 검색함
+	 	어떤 db를 쓸지 알려주는 것 
+	  -->
+	<jee:jndi-lookup 
+	id="dataSource" 
+	jndi-name="jdbc/myoracle" 
+	resource-ref="true"/>
+	
+	<beans:bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
+	<!-- ViewResolver 등록 -->
 	<beans:bean id="viewResolver" 
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/" />	

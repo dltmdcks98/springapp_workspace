@@ -30,7 +30,7 @@ public class NewsServiceImpl  implements NewsService{
 	@Override
 	public void regist(News news) {
 		// TODO Auto-generated method stub
-		newsDAO.insert(news);
+		newsDAO.insert(news);//  
 	}
 
 	@Override
