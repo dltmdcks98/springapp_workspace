@@ -33,11 +33,11 @@ public class JdbcNewsDAO implements NewsDAO{
 	public void insert(News news) throws NewsException {//throws 에러 전가 
 		// TODO Auto-generated method stub
 		System.out.println("jdbc 탬플릿으로 insert시도");
-//		int result = jdbcTemplate.update("insert into news(title,writer, content) values(?,?,?)", news.getTitle(),news.getWriter(),news.getContent());//update 메소드가 DML을 처리
+		int result = jdbcTemplate.update("insert into news(news_id,title,writer, content) values(seq_news.nextval,?,?,?)", news.getTitle(),news.getWriter(),news.getContent());//update 메소드가 DML을 처리
 		
-//		if(result==0) {
+		if(result==0) {
 			throw new NewsException("jdbc 템플릿으로 등록 실패");//throw 에러 발생시키는것
-//		}
+		}
 	
 	}
 
