@@ -1,0 +1,48 @@
+package com.academy.springdb.model.news;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
+import com.academy.springdb.model.domain.News;
+
+@Service
+public class NewsServiceImpl  implements NewsService{
+
+	@Autowired
+	@Qualifier("jdbcNewsDAO")
+	private NewsDAO newsDAO;
+	
+	@Override
+	public List selectAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public News select(int news_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void regist(News news) {
+		// TODO Auto-generated method stub
+		newsDAO.insert(news);
+	}
+
+	@Override
+	public void update(News news) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(int news_id) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
