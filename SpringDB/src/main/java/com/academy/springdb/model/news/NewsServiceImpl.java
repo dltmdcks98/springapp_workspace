@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.academy.springdb.exception.NewsException;
 import com.academy.springdb.model.domain.News;
 
 @Service
@@ -28,7 +29,7 @@ public class NewsServiceImpl  implements NewsService{
 	}
 
 	@Override
-	public void regist(News news) {
+	public void regist(News news) throws NewsException{//처리를 여기서 하게되면 클라이언트가 에러를 볼수 없다.
 		// TODO Auto-generated method stub
 		newsDAO.insert(news);//  
 	}
