@@ -3,22 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  	<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
+<script src="https://unpkg.com/react@18/umd/react.development.js"
+	crossorigin></script>
+<script
+	src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+	crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
 <script type="text/babel">
 //게시판 스킨을 정의
-	function board(){//board 컴포넌트라고 말해야함
-		return (<table>
-				</table>);
+	function Board(){//board 컴포넌트라고 말해야함
+	var arr=[];//자바스크립트 배열 선언
+	for(var i =0;i<10;i++){
+		arr.push("<tr><td></td></tr>");
 	}
+
+		return (
+			<table width ="100%" border="1px">
+				<tr>
+					<th>댓글 내용</th>
+					<th>작성자</th>
+					<th>작성일</th>
+				</tr>			
+			</table>
+
+		);
+	}
+
+var root = ReactDOM.createRoot(document.getElementById("listArea"));
+root.render(<Board />);
+
+
 </script>
 </head>
 <body>
 	<button onClick="board()">동적출력</button>
-	<div>
-		
+	<div id="listArea">
+	
 	</div>
 </body>
 </html>
