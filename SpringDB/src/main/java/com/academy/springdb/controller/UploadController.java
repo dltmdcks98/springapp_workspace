@@ -33,6 +33,7 @@ public class UploadController {
 		//아직 물리적인 파일로 존재시킨 적이 없으므로, 원하는 서버의 디렉토리에 파일을 저장해보자
 		String path =request.getServletContext().getRealPath("/resources/data");//jsp에서의 application내장객체(getServletContext() ..getRealpath()
 		String filepath= path + "/" + multi.getOriginalFilename();
+		System.out.println(filepath);
 		try {
 			multi.transferTo(new File(filepath));
 		} catch (IllegalStateException e) {
