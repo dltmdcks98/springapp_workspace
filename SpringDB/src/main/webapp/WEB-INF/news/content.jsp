@@ -46,6 +46,15 @@ input[type=button]:hover {
 	background-color: #f2f2f2;
 	padding: 20px;
 }
+#inputArea input[name='detail']{
+	width:65%
+}
+#inputArea input[name='author']{
+	width:15%
+}
+#inputArea input[name='button']{
+	width:15%
+}
 </style>
 <script>
 function regist(){
@@ -69,6 +78,12 @@ function regist(){
 			<input type="button" value="등록" onClick="regist()"> <input
 				type="button" value="목록" onClick="location.href='/news/list'">
 		</form>
+		
+		<div id="inputArea">
+			<input type="text" name="detail">
+			<input type="text" name="author"> 
+			<input type="button" value="댓글등록"> 
+		</div>
 	</div>
 
 </body>
