@@ -12,19 +12,20 @@
 
 <script type="text/babel">
 //재사용 가능성이 높은 디자인에 대해 컴포넌트로 정의하자 
-function Comments(){//board 컴포넌트라고 말해야함
+function Comments(props){//board 컴포넌트라고 말해야함
 	return(
 		<tr>
-			<td>부동산 가격하락</td>	
-			<td>배트맨</td>	
-			<td>22-09-15</td>	
+			<td>{props.msg}</td>	
+			<td>{props.cwriter}</td>	
+			<td>{props.cregdate}</td>	
 		</tr>
 	);
 }
 function printList(){
 	var tag = [];
 	for(var i=0;i<10;i++){
-		tag.push(<Comments />);
+		tag.push(<Comments msg={"aaa"} cwriter={"bbb"} cregdate={"ccc"} />);
+
 	}
 //재활용성이 없는 나머지 테이블에 대해서는 직접 작성
 	var table=(
