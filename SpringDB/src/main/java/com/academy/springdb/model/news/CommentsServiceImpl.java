@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.academy.springdb.exception.CommentsException;
 import com.academy.springdb.model.domain.Comments;
 @Service
 public class CommentsServiceImpl implements CommentsService{
@@ -32,9 +33,8 @@ public class CommentsServiceImpl implements CommentsService{
 	}
 
 	@Override
-	public void insert(Comments comments) {
-		// TODO Auto-generated method stub
-		
+	public void insert(Comments comments) throws CommentsException {
+		commentsDAO.insert(comments);
 	}
 
 	@Override

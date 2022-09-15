@@ -114,6 +114,11 @@ function registAsync(){
 	$.ajax({
 		url:"/rest/comments",
 		type:"post",
+		data:{
+			detail:$("input[name='detail']").val(),
+			author:$("input[name='author']").val(),
+			news_id: $("input[name='news_id']").val()
+		},
 		success:function(result,status,xhr){//서버의 응답이 성공하면(200) 익명함수가 호출됨
 			alert(result);
 			
@@ -124,7 +129,7 @@ function registAsync(){
 function getListAsync(){
 	$.ajax({
 //		요청이니까 /rest를 넣어야함 서버쪽에서는 /rest를 넣지 않아도 됨 
-		url:"/rest/comments/<%=news.getNews_id()%>",
+		url:"/rest/comments/"+$("input[name='news_id']").val(),  
 		type:"get",
 		success : function(result, status, xhr){
 			alert(result);
@@ -148,6 +153,7 @@ $(function(){
 
 	<div class="container">
 		<form name="form1">
+			<input type ="hidden" name="news_id" value="<%=news.getNews_id()%>">
 			<input type="text" name="title" placeholder="제목입력" value="<%=news.getTitle()%>"> 
 			<input type="text" name="writer" placeholder="작성자 입력" value="<%=news.getWriter()%>">
 			<textarea name="content" placeholder="내용작성" style="height: 200px"><%=news.getContent()%></textarea>
