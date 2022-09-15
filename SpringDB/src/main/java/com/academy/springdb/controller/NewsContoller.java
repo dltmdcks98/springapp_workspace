@@ -28,7 +28,7 @@ public class NewsContoller {
 		List newsList = newsService.selectAll();
 		ModelAndView mav= new ModelAndView("/news/list");
 		mav.addObject("newsList",newsList);
-		
+		System.out.println(mav);
 		return mav;
 	}
 	//글 상세 보기 

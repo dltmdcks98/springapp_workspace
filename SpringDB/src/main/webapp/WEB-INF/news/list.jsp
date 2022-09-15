@@ -2,7 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-	List<News> newsList = (List)request.getAttribute("newsList");
+	List<News> newsList = (List) request.getAttribute("newsList");
 	out.print(newsList.size());
 	
 %>
