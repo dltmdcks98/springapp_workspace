@@ -39,7 +39,7 @@ public class JdbcCommentsDAO implements CommentsDAO {
 				comments.setDetail(rs.getString("detail"));
 				comments.setAuthor(rs.getString("author"));
 				comments.setWritedate(rs.getString("writedate"));
-				comments.setNews_id(rs.getInt(news_id));
+				comments.setNews_id(news_id);
 				
 				return comments;
 			}});

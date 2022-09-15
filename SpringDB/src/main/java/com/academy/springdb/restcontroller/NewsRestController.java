@@ -1,5 +1,7 @@
 package com.academy.springdb.restcontroller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,9 +46,15 @@ public class NewsRestController {
 	//@PathVariabel : 경로 사이에 있는 문자를 변수로.(@PathVariable("news_id") int news_id 는 URL에 news_id에 자리에 있는 값은 변수 news_id로 넣는다.
 	@GetMapping("/comments/{news_id}")
 	@ResponseBody//접두어 접미어를 적용하지 않는다.
-	public String getList(@PathVariable("news_id") int news_id) {
+	public List getList(@PathVariable("news_id") int news_id) {
 		System.out.println("넘어온 news_id :"+news_id);
-		return "getLsit";
+		
+		List commentList = commentsService.selectByNewsId(news_id);
+		//클라이언트가 예측하고 기다리는 데이터는 json,xml 이다. 
+		//지금 전달하는 객체는 클라이언트가 이해할 수 없는 자바 객체 
+		//따라서 자바 객체를 json으로 변환하되 수동이 아닌 자동으로 진행하려면 외부 라이브러러리(Gson)을 이용
+		//Spring도 외부 라이브러리(Jackson Databind)를 이용
+		return commentList;
 	}
 
 

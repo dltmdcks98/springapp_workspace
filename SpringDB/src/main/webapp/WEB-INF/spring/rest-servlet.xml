@@ -38,4 +38,11 @@
 	<!-- 	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/> -->
 	</context:component-scan>
 	
+	<!-- 비동기 요청에 대해, json 데이터를 보내고자 할때 java 객체를 자동으로 json 객체로 변환해주는 bean을 등록 -->
+	<beans:bean id="mappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<!--정해져 있음  -->
+		<beans:property name="supportedMediaTypes">
+			<beans:value>application/json;charset=utf-8</beans:value>
+		</beans:property>
+	</beans:bean>
 </beans:beans>

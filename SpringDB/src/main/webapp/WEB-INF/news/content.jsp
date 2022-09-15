@@ -89,10 +89,12 @@ function Row(props){
 	);
 }
 
-function printCommentsList(){
+function printCommentsList(jsonArray){
 	var tag = [];
-	for(var i =0; i<10; i++){
-		tag.push(<Row detail={"내용"+i} cwriter={"베트맨"+i} cregdate={i+"일"}/>);//컴포넌트 1개를 변수에 추가
+
+	for(var i =0; i<jsonArray.length; i++){
+		var comments=jsonArray[i];
+		tag.push(<Row detail={comments.detail} cwriter={comments.author} cregdate={comments.writedate}/>);//컴포넌트 1개를 변수에 추가
 	}
 		var result=(
 			<table width="100%" border="1px">
@@ -120,8 +122,7 @@ function registAsync(){
 			news_id: $("input[name='news_id']").val()
 		},
 		success:function(result,status,xhr){//서버의 응답이 성공하면(200) 익명함수가 호출됨
-			alert(result);
-			
+			getListAsync();
 		}
 	});	
 }
@@ -132,13 +133,16 @@ function getListAsync(){
 		url:"/rest/comments/"+$("input[name='news_id']").val(),  
 		type:"get",
 		success : function(result, status, xhr){
-			alert(result);
+			console.log("댓글 수는 :"+result.length);
+		
+			printCommentsList(result);//json배열을 넘김 
+	
 		}
 	});
 }
 $(function(){
 	getListAsync()
-	printCommentsList();
+
 	
 	//댓글 등록이벤트 구현 
 	$("#inputArea input[type='button']").click(function(){
