@@ -14,7 +14,7 @@ public class NewsServiceImpl  implements NewsService{
 
 	@Autowired
 	//밑에 부분만 바꾸면 jdbc,mybatis 등으로 변경 
-	@Qualifier("jdbcNewsDAO")
+	@Qualifier("mybatisNewsDAO")
 	private NewsDAO newsDAO;
 	
 	@Override
