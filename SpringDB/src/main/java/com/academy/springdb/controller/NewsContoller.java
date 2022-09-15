@@ -49,9 +49,9 @@ public class NewsContoller {
 	
 	//글쓰기 요청 처리
 	@PostMapping("/news/regist")
-	public ModelAndView regist(News news) {
+	public String regist(News news) {
 		newsService.regist(news);
-		return new ModelAndView("redirect:/news/list");
+		return "redirect:/news/list";
 	}
 	
 	//수정 요청 처리 
