@@ -150,6 +150,11 @@ function edit(){
 	}
 }
 
+function del(){
+	if(confirm("삭제하시겠어요?")){
+		$(location).attr("href","/news/delete?news_id="+$("input[name='news_id']").val());
+	}
+}
 $(function(){
 	getListAsync()
 

@@ -109,10 +109,12 @@ public class JdbcNewsDAO implements NewsDAO{
 	}
 
 	@Override
-	public void delete(int news_id) {
-		String sql = "delete news where news_id =?";
-		
-		
+	public void delete(int news_id) throws NewsException{
+		String sql = "delete from news where news_id =?";
+		int result = jdbcTemplate.update(sql,new Object[] {news_id});
+		if(result==0) {
+			throw new NewsException("jdbc를 이용한 삭제 실패");
+		}		
 	}
 	
 }

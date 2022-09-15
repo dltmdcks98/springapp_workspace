@@ -63,7 +63,14 @@ public class NewsContoller {
 		return mav;
 		
 	}
-	
+	//삭제요청 처리
+	@GetMapping("/news/delete")
+	public String delete(int news_id) {
+		newsService.delete(news_id);
+		
+		return "redirect:/news/list";
+		
+	}
 	//스프링 MVC 컨트롤러의 메서드들 중에서 예외가 발생할때 이 예외를 처리할 메서드를 지원해준다. 
 	@ExceptionHandler(NewsException.class)
 	public ModelAndView handleException(NewsException e) {

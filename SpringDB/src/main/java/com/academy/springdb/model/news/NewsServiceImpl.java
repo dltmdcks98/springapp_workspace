@@ -41,9 +41,9 @@ public class NewsServiceImpl  implements NewsService{
 	}
 
 	@Override
-	public void delete(int news_id) {
+	public void delete(int news_id) throws NewsException{
 		// TODO Auto-generated method stub
-		
+		newsDAO.delete(news_id);
 	}
 	
 }
