@@ -35,9 +35,9 @@ public class NewsServiceImpl  implements NewsService{
 	}
 
 	@Override
-	public void update(News news) {
+	public void update(News news) throws NewsException {
 		// TODO Auto-generated method stub
-		
+		newsDAO.update(news);
 	}
 
 	@Override

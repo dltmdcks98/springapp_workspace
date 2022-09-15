@@ -140,6 +140,16 @@ function getListAsync(){
 		}
 	});
 }
+function edit(){
+	if(confirm("수정하시겠어요?")){
+		$("form").attr({
+			action:"/news/update",
+			method:"post"
+		});
+		$("form").submit();
+	}
+}
+
 $(function(){
 	getListAsync()
 
@@ -161,7 +171,9 @@ $(function(){
 			<input type="text" name="title" placeholder="제목입력" value="<%=news.getTitle()%>"> 
 			<input type="text" name="writer" placeholder="작성자 입력" value="<%=news.getWriter()%>">
 			<textarea name="content" placeholder="내용작성" style="height: 200px"><%=news.getContent()%></textarea>
-			<input type="button" value="등록" onClick="regist()"> 
+			
+			<input type="button" value="수정" onClick="edit()"> 
+			<input type="button" value="삭제" onClick="del()"> 
 			<input type="button" value="목록" onClick="location.href='/news/list'">
 		</form>
 

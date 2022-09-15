@@ -51,10 +51,18 @@ public class NewsContoller {
 	@PostMapping("/news/regist")
 	public ModelAndView regist(News news) {
 		newsService.regist(news);
-		return null;
+		return new ModelAndView("redirect:/news/list");
 	}
 	
-
+	//수정 요청 처리 
+	@PostMapping("/news/update")
+	public ModelAndView update(News news) {
+		newsService.update(news);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/news/content?news_id="+news.getNews_id());//상세보기로 재접속
+		return mav;
+		
+	}
 	
 	//스프링 MVC 컨트롤러의 메서드들 중에서 예외가 발생할때 이 예외를 처리할 메서드를 지원해준다. 
 	@ExceptionHandler(NewsException.class)
@@ -65,6 +73,7 @@ public class NewsContoller {
 		mav.addObject("msg",e.getMessage());
 		return mav;
 	}
+	
 	
 	
 	

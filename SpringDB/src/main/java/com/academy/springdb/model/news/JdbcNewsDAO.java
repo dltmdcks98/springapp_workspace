@@ -100,14 +100,18 @@ public class JdbcNewsDAO implements NewsDAO{
 	}
 
 	@Override
-	public void update(News news) {
-		// TODO Auto-generated method stub
-		
+	public void update(News news) throws NewsException{
+		String sql = "update news set title=?, writer=?, content=? where news_id=?";
+		int result = jdbcTemplate.update(sql,news.getTitle(),news.getWriter(),news.getContent(),news.getNews_id());
+		if(result ==0) {
+			throw new NewsException("jdbc를 이용한 수정 실패");
+		}
 	}
 
 	@Override
 	public void delete(int news_id) {
-		// TODO Auto-generated method stub
+		String sql = "delete news where news_id =?";
+		
 		
 	}
 	
