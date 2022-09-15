@@ -11,35 +11,40 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
 <script type="text/babel">
-//게시판 스킨을 정의
-	function Board(){//board 컴포넌트라고 말해야함
-	var arr=[];//자바스크립트 배열 선언
-	for(var i =0;i<10;i++){
-		arr.push("<tr><td></td></tr>");
+//재사용 가능성이 높은 디자인에 대해 컴포넌트로 정의하자 
+function Comments(){//board 컴포넌트라고 말해야함
+	return(
+		<tr>
+			<td>부동산 가격하락</td>	
+			<td>배트맨</td>	
+			<td>22-09-15</td>	
+		</tr>
+	);
+}
+function printList(){
+	var tag = [];
+	for(var i=0;i<10;i++){
+		tag.push(<Comments />);
 	}
-
-		return (
-			<table width ="100%" border="1px">
-				<tr>
-					<th>댓글 내용</th>
-					<th>작성자</th>
-					<th>작성일</th>
-				</tr>			
-			</table>
-
-		);
-	}
-
-var root = ReactDOM.createRoot(document.getElementById("listArea"));
-root.render(<Board />);
-
-
+//재활용성이 없는 나머지 테이블에 대해서는 직접 작성
+	var table=(
+	<table width="100%" border="1px">
+		<tr>
+			<th>댓글내용</th>
+			<th>작성자</th>
+			<th>작성일</th>
+		</tr>
+		{tag}
+	</table>
+);
+	var root = ReactDOM.createRoot(document.getElementById("listArea"));
+	root.render(table);
+}
+printList();
 </script>
 </head>
 <body>
 	<button onClick="board()">동적출력</button>
-	<div id="listArea">
-	
-	</div>
+	<div id="listArea"></div>
 </body>
 </html>
