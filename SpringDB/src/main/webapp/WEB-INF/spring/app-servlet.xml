@@ -43,7 +43,7 @@
 
 	<!-- base-package에 소속된 모든 클래스는 인스턴스의 scan대상이 된다. 단 REST를 적용하는 것 빼고 -->
 	<context:component-scan base-package="com.academy.springdb.controller" >
-		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
+		<!-- <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/> -->
 	</context:component-scan>
 	
 	

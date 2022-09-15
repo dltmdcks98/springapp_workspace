@@ -15,7 +15,9 @@ import com.academy.springdb.model.news.NewsService;
 
 @Controller/*스프링 컨테이너가 메모리에 올릴 대상이 될 수 있도록*/
 public class NewsContoller {
-	
+	public NewsContoller() {
+		System.out.println("그냥 컨트롤러, 지금 Spring에 의해 태어남");
+	}
 	@Autowired
 	private NewsService newsService;
 	

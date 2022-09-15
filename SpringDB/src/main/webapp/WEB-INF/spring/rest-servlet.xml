@@ -34,8 +34,8 @@
 	<annotation-driven />
 
 	<!-- base-package에 소속된 모든 클래스는 인스턴스의 scan대상이 된다. -->
-	<context:component-scan base-package="com.academy.springdb.controller">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	<context:component-scan base-package="com.academy.springdb.restcontroller">
+	<!-- 	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/> -->
 	</context:component-scan>
 	
 </beans:beans>

@@ -79,12 +79,12 @@ function regist() {
 	}
 	
 //데이터 출력용  tr을 컴포넌트로 정의한다.(reusable UI Compoent)
-function Row(){
+function Row(props){
 	return(
 		<tr>
-			<td>댓글내용</td>
-			<td>작성자</td>
-			<td>22-09-15</td>
+			<td>{props.detail}</td>
+			<td>{props.cwriter}</td>
+			<td>{props.cregdate}</td>
 		</tr>
 	);
 }
@@ -92,7 +92,7 @@ function Row(){
 function printCommentsList(){
 	var tag = [];
 	for(var i =0; i<10; i++){
-		tag.push(<Row/>);//컴포넌트 1개를 변수에 추가
+		tag.push(<Row detail={"내용"+i} cwriter={"베트맨"+i} cregdate={i+"일"}/>);//컴포넌트 1개를 변수에 추가
 	}
 		var result=(
 			<table width="100%" border="1px">
@@ -109,8 +109,25 @@ function printCommentsList(){
 	root.render(result);
 	}
 
+//비동기 댓글 등록 요청
+function registAsync(){
+	$.ajax({
+		url:"/rest/comments",
+		type:"post",
+		success:function(result,status,xhr){//서버의 응답이 성공하면(200) 익명함수가 호출됨
+			alert(result);
+			
+		}
+	});	
+}
+
 $(function(){
 	printCommentsList();
+
+	//댓글 등록이벤트 구현 
+	$("#inputArea input[type='button']").click(function(){
+		registAsync();
+	});
 });
 </script>
 </head>
