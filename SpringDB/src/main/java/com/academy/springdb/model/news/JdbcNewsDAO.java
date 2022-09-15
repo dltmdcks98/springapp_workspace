@@ -66,8 +66,25 @@ public class JdbcNewsDAO implements NewsDAO{
 	//뉴스 상세보기
 	@Override
 	public News select(int news_id) {
+		String sql = "select * from news where news_id=?";
 		
-		return null;
+		News news = jdbcTemplate.queryForObject(sql, new Object[] {news_id},new RowMapper<News>() {
+
+			@Override
+			public News mapRow(ResultSet rs, int rowNum) throws SQLException {
+				News news = new News();
+				news.setNews_id(rs.getInt("news_id"));
+				news.setTitle(rs.getString("title"));
+				news.setWriter(rs.getString("writer"));
+				news.setContent(rs.getString("content"));
+				news.setRegdate(rs.getString("regdate"));
+				news.setHit(rs.getInt("hit"));
+				
+				return news;
+			}
+			
+		});
+		return news;
 	}
 
 	@Override
