@@ -120,10 +120,21 @@ function registAsync(){
 		}
 	});	
 }
-
+//비동기 댓글 가져오기 
+function getListAsync(){
+	$.ajax({
+//		요청이니까 /rest를 넣어야함 서버쪽에서는 /rest를 넣지 않아도 됨 
+		url:"/rest/comments/<%=news.getNews_id()%>",
+		type:"get",
+		success : function(result, status, xhr){
+			alert(result);
+		}
+	});
+}
 $(function(){
+	getListAsync()
 	printCommentsList();
-
+	
 	//댓글 등록이벤트 구현 
 	$("#inputArea input[type='button']").click(function(){
 		registAsync();
