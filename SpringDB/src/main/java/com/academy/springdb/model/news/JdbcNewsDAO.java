@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.academy.springdb.exception.NewsException;
+import com.academy.springdb.model.domain.Comments;
 import com.academy.springdb.model.domain.News;
 
 @Repository
@@ -34,17 +35,38 @@ public class JdbcNewsDAO implements NewsDAO{
 				news.setRegdate(rs.getString("regdate"));
 				news.setHit(rs.getInt("hit"));
 				
+				//현재 뉴스 한건에 딸려잇는 자식 목록 가져오기 
+				//news DTO 가 가지고 있는 commentsList에 담아준다.
+				String sql = "select*from comments where news_id=?";
+				
+				List commentsList = jdbcTemplate.query(sql, new Object[] {news.getNews_id()},new RowMapper() {
+					@Override
+					public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+						Comments comments = new Comments();
+						comments.setComments_id(rs.getInt("comments_id"));
+						comments.setDetail(rs.getString("detail"));
+						comments.setAuthor(rs.getString("author"));
+						comments.setWritedate(rs.getString("writedate"));
+						comments.setNews_id(rs.getInt("news_id"));
+	
+						return comments;
+					}
+				});
+				//Comments의 목록이 다 완성되면 NewsDTO 에 등록
+				
+				news.setCommentsList(commentsList);
 				return news;
 			}
 			
 		});
-		
+		System.out.println("jdbc 목록 결과"+list);
 		return list;
 	}
 
+	//뉴스 상세보기
 	@Override
 	public News select(int news_id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
