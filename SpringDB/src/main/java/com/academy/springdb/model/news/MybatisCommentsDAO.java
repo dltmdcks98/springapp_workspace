@@ -2,12 +2,18 @@ package com.academy.springdb.model.news;
 
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.academy.springdb.exception.CommentsException;
 import com.academy.springdb.model.domain.Comments;
 
 @Repository
 public class MybatisCommentsDAO implements CommentsDAO{
+	
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
 
 	@Override
 	public List selectAll() {
@@ -40,8 +46,16 @@ public class MybatisCommentsDAO implements CommentsDAO{
 	}
 
 	@Override
-	public void delete(int comments_id) {
+	public void delete(int comments_id) throws CommentsException{
+	}
+
+	@Override
+	public void deleteByNewsId(int news_id) throws CommentsException {
 		// TODO Auto-generated method stub
+		int result = sqlSessionTemplate.delete("Comments.deleteByNewsId",news_id);
+		if(result==0) {
+			throw new CommentsException("mybatis로 댓글 삭제 실패");
+		}
 		
 	}
 	

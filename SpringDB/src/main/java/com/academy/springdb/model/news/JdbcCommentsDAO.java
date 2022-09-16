@@ -75,4 +75,10 @@ public class JdbcCommentsDAO implements CommentsDAO {
 		
 	}
 
+	@Override
+	public void deleteByNewsId(int news_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -17,6 +17,10 @@ public class NewsServiceImpl  implements NewsService{
 	@Qualifier("mybatisNewsDAO")
 	private NewsDAO newsDAO;
 	
+	@Autowired
+	@Qualifier("mybatisCommentsDAO")
+	private CommentsDAO commentsDAO;
+	
 	@Override
 	public List selectAll() {
 		return newsDAO.selectAll();
@@ -42,8 +46,12 @@ public class NewsServiceImpl  implements NewsService{
 
 	@Override
 	public void delete(int news_id) throws NewsException{
-		// TODO Auto-generated method stub
-		newsDAO.delete(news_id);
+		//세부 업무 1 - 자식 글 삭제
+		commentsDAO.deleteByNewsId(news_id);//예외 걸려있음 , 예외 발생시 Spring에서 예외를 알아서 처리 
+		
+		//세부 업무 2 - 부모글 삭제 
+		newsDAO.delete(news_id);//예외 걸려있음
+
 	}
 	
 }

@@ -7,4 +7,7 @@
 		select * from comments where news_id=#{news_id}
 	</select>
 
+	<delete id="deleteByNewsId" parameterType="int">
+		delete from comments where news_id=#{news_id}
+	</delete>
 </mapper>

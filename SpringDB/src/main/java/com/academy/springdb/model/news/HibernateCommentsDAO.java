@@ -44,5 +44,11 @@ public class HibernateCommentsDAO implements CommentsDAO {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void deleteByNewsId(int news_id) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
