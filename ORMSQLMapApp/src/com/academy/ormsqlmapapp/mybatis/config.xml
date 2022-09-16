@@ -18,6 +18,6 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="com/academy/ormsqlmapapp/mybatid/BoardMapper.xml"/>
+    <mapper resource="com/academy/ormsqlmapapp/mybatis/BoardMapper.xml"/>
   </mappers>
 </configuration>
