@@ -72,7 +72,7 @@ $(function(){
 <h3>admin 등록</h3>
   <form action="/action_page.php">
 
-    <input type="text" 			name=" user_id" 		placeholder="Admin ID..">    
+    <input type="text" 			name="user_id" 		placeholder="Admin ID..">    
     <input type="password"  	name="pass" 			placeholder="Admin Pass..">
     <input type="text" 			name="name" 			placeholder="Admin name..">
     
