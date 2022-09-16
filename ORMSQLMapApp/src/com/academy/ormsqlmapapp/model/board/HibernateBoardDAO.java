@@ -33,18 +33,29 @@ public class HibernateBoardDAO implements BoardDAO {
 	@Override
 	public void insert(Board board) {
 		// TODO Auto-generated method stub
-		
+		Session session = configManager.getSession();
+		Transaction transaction = session.beginTransaction();
+		int result = (int)session.save(board);
+		System.out.println("방금 입력된 레코드의 pk :"+result);
+		transaction.commit();
 	}
 
 	@Override
 	public void update(Board board) {
-		// TODO Auto-generated method stub
+		Session session = configManager.getSession();
+		
+		Transaction transaction = session.beginTransaction();
+		session.update(board);
+		transaction.commit();
 		
 	}
 
 	@Override
 	public void delete(Board board) {
-		// TODO Auto-generated method stub
+		Session session = configManager.getSession();
+		Transaction transaction = session.beginTransaction();
+		session.delete(board);
+		transaction.commit();
 		
 	}
 	
