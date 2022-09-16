@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.academy.shopping.exception.AdminException;
 import com.academy.shopping.model.domain.Admin;
+import com.academy.shopping.model.util.HashManager;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -15,6 +16,9 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	@Qualifier("mybatisAdminDAO")
 	private AdminDAO adminDAO;
+	
+	@Autowired
+	private HashManager hashManager;
 	
 	@Override
 	public List selectAll() {
@@ -35,6 +39,9 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public void insert(Admin admin)throws AdminException {
+		//회원 등록 전에 평문이었던 비밀번호를 암호화 시킨다.
+		String hash = hashManager.getConvertedPassword(admin.getPass());
+		admin.setPass(hash);
 		adminDAO.insert(admin);
 	}
 

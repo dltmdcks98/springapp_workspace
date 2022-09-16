@@ -62,6 +62,7 @@ $(function(){
 		//비동기로 가입을 처리 
 		registAsync();
 	});
+	
 });
 </script>
 </head>
