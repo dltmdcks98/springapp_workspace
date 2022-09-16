@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.academy.springdb.exception.NewsException;
 import com.academy.springdb.model.domain.News;
@@ -44,7 +46,7 @@ public class NewsServiceImpl  implements NewsService{
 		newsDAO.update(news);
 	}
 
-	@Override
+	@Transactional(propagation = Propagation.REQUIRED)//이 부분이 있으면, 트랜잭션을 자동으로 만들어준다.
 	public void delete(int news_id) throws NewsException{
 		//세부 업무 1 - 자식 글 삭제
 		commentsDAO.deleteByNewsId(news_id);//예외 걸려있음 , 예외 발생시 Spring에서 예외를 알아서 처리 
