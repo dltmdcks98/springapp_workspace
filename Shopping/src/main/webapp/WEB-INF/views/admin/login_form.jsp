@@ -38,17 +38,35 @@ input[type=button]:hover {
   	padding: 20px;
   	margin:auto;'
 }
-</style>
+</style><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$($("input[type='button']")[0]).click(function(){
+			//post요청 body에 실어서 옮겨야 노출되지 않음 
+			$.ajax({
+				url:"/rest/admin/login",
+				type:"post",
+				data:{
+					user_id : $("input[name='user_id']").val(),
+					pass:$("input[name='pass']").val()
+				},
+				success:function(result,status,xhr){
+					alert(result);
+				}
+			});
+		});
+	});
+</script>
 </head>
 <body>
 
 
 <div class="container">
 <h3>Admin Login Form</h3>
-  <form action="/action_page.php">
-    <input type="text" name="firstname" placeholder="Your ID..">
+  <form>
+    <input type="text" name="user_id" placeholder="Your ID..">
 
-    <input type="password"  name="lastname" placeholder="Your Pass..">
+    <input type="password"  name="pass" placeholder="Your Pass..">
     
     <input type="button" value="관리자 로그인">
     <input type="button" value="관리자 등록" onClick="location.href='/admin/registform'">

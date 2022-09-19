@@ -44,6 +44,7 @@ input[type=button]:hover {
 //비동기로 요청 RESTful 하게 하므로, /rest/뒤에 명사형 즉 regist대신 명사로 표현
 function registAsync(){
 	$.ajax({
+		//admin을 회원 등록으로 써서 어쩔수 없이 login을 사용
 		url:"/rest/admin",
 		type:"post",
 		data:{
@@ -58,6 +59,9 @@ function registAsync(){
 	
 }
 $(function(){
+	$($("input[type='button']")[0]).click(function(){
+		$(location).attr("href","/admin/loginform");
+	});
 	$($("input[type='button']")[1]).click(function(){
 		//비동기로 가입을 처리 
 		registAsync();
