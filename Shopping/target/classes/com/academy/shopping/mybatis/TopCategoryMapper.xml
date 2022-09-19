@@ -13,4 +13,9 @@
 	<select id="selectAll" resultType="TopCategory">
 		select * from topcategory
 	</select>
+	
+	<!-- association을 위함 -->
+	<select id="select" parameterType="int" resultType="TopCategory">
+		select * from topcategory where topcategory_id=#{topcategory_id}
+	</select>
 </mapper> 
