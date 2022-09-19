@@ -1,9 +1,12 @@
 package com.academy.shopping.restcontroller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,18 +15,26 @@ import com.academy.shopping.model.category.TopCategoryService;
 import com.academy.shopping.model.domain.TopCategory;
 
 @RestController
-public class CategoryRestController {
+public class TopCategoryRestController {
 	
 	@Autowired
 	private TopCategoryService topCategoryService;
 	
-	//관리자-카테고리 등록 요청 처리
-	@PostMapping("/admin/category")
+	//관리자-상위 카테고리 등록 요청 처리
+	@PostMapping("/admin/topcategory")
 	public ResponseEntity regist(TopCategory topCategory) {
 		topCategoryService.insert(topCategory);
 		ResponseEntity entity = new ResponseEntity(HttpStatus.OK);//200
 		return entity;
 	}
+	
+	//관리자 - 상위 카테고리 목록 요청 처리
+	@GetMapping("/admin/topcategory")
+	public List getList() { 
+		List topList = topCategoryService.selectAll();
+		
+		return topList;///List->json배열로 변환 (bean으로 등록한 MessageConverter가 해줌)
+	} 
 	
 	@ExceptionHandler(TopCategoryException.class)
 	public ResponseEntity handleException(TopCategoryException e) {

@@ -1,4 +1,6 @@
+<%@page import="com.academy.shopping.restcontroller.TopCategoryRestController"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -191,9 +193,12 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label>상위카테고리</label> 
-										<input type="text" class="form-control" style="width:80%" name="category_name">
-										<button class="btn btn-primary" onClick="registTop()">등록</button>
+										<label>상위카테고리</label>
+										<!-- bootstrap은 한 div당 12칸으로 나누는데 이를 12칸으로 나누기 위해 class:row를 넣고, 나눌 대상을 col-md-숫자 를 넣는다.  --> 
+											<div class="row" style="margin:1px">
+												<input type="text" class="form-control col-md-11"  name="category_name">
+												<button class="btn btn-primary col-md-1" onClick="registTop()">등록</button>
+											</div>
 										<select class="form-control select" style="width: 100%;" size="20">
 											<option selected="selected">Alabama</option>
 											<option>Alaska</option>
@@ -286,16 +291,40 @@
 	<script src="/static/admin/dist/js/demo.js"></script>
 	<!-- Page specific script -->
 	<script>
+	function getTopList(){
+		$.ajax({
+			url:"/rest/admin/topcategory",
+			type:"get",
+			success:function(result,status,xhr){
+				printTopList(result);
+			}
+			
+		});		
+	}
+	
+	function printTopList(jsonList){
+
+		var sel = $($("select")[0]); 
+		$(sel).empty();//기존 아이템을 모두 초기화
+		
+		var tag = "";
+		for(var i=0; i<jsonList.length;i++){
+			var topcategory= jsonList[i];//상위 카테고리 json
+			tag += "<option value=\""+topcategory.topcategory_id+"\">"+topcategory.category_name+"</option>";
+		}
+		$(sel).append(tag);
+		
+	}
 	//상위 카테고리 비동기 등록 요청
 	function registTop(){
 		$.ajax({
-			url :"/rest/admin/category",
+			url :"/rest/admin/topcategory",
 			type:"post",
 			data:{
 				category_name:$("input[name='category_name']").val()
 			},
 			success:function(result,status,xhr){
-				alert(status);
+				getTopList();
 			},
 			error:function(xhr,status,error){
 				alert(status,+", "+error);
@@ -303,168 +332,15 @@
 			
 		});
 	}
+	$(function(){
+		getTopList();//상위카테로길의 목록 가져오기
+		
+		$($("select")[0]).change(function(){
+			alert("당신이 선택한 아이템의 value값은 :" + $(this).val());
+		});
+		
+	});
 	
-		$(function() {
-			//Initialize Select2 Elements
-			$('.select2').select2()
-
-			//Initialize Select2 Elements
-			$('.select2bs4').select2({
-				theme : 'bootstrap4'
-			})
-
-			//Datemask dd/mm/yyyy
-			$('#datemask').inputmask('dd/mm/yyyy', {
-				'placeholder' : 'dd/mm/yyyy'
-			})
-			//Datemask2 mm/dd/yyyy
-			$('#datemask2').inputmask('mm/dd/yyyy', {
-				'placeholder' : 'mm/dd/yyyy'
-			})
-			//Money Euro
-			$('[data-mask]').inputmask()
-
-			//Date picker
-			$('#reservationdate').datetimepicker({
-				format : 'L'
-			});
-
-			//Date and time picker
-			$('#reservationdatetime').datetimepicker({
-				icons : {
-					time : 'far fa-clock'
-				}
-			});
-
-			//Date range picker
-			$('#reservation').daterangepicker()
-			//Date range picker with time picker
-			$('#reservationtime').daterangepicker({
-				timePicker : true,
-				timePickerIncrement : 30,
-				locale : {
-					format : 'MM/DD/YYYY hh:mm A'
-				}
-			})
-			//Date range as a button
-			$('#daterange-btn').daterangepicker(
-					{
-						ranges : {
-							'Today' : [ moment(), moment() ],
-							'Yesterday' : [ moment().subtract(1, 'days'),
-									moment().subtract(1, 'days') ],
-							'Last 7 Days' : [ moment().subtract(6, 'days'),
-									moment() ],
-							'Last 30 Days' : [ moment().subtract(29, 'days'),
-									moment() ],
-							'This Month' : [ moment().startOf('month'),
-									moment().endOf('month') ],
-							'Last Month' : [
-									moment().subtract(1, 'month').startOf(
-											'month'),
-									moment().subtract(1, 'month')
-											.endOf('month') ]
-						},
-						startDate : moment().subtract(29, 'days'),
-						endDate : moment()
-					},
-					function(start, end) {
-						$('#reportrange span').html(
-								start.format('MMMM D, YYYY') + ' - '
-										+ end.format('MMMM D, YYYY'))
-					})
-
-			//Timepicker
-			$('#timepicker').datetimepicker({
-				format : 'LT'
-			})
-
-			//Bootstrap Duallistbox
-			$('.duallistbox').bootstrapDualListbox()
-
-			//Colorpicker
-			$('.my-colorpicker1').colorpicker()
-			//color picker with addon
-			$('.my-colorpicker2').colorpicker()
-
-			$('.my-colorpicker2').on(
-					'colorpickerChange',
-					function(event) {
-						$('.my-colorpicker2 .fa-square').css('color',
-								event.color.toString());
-					})
-
-			$("input[data-bootstrap-switch]").each(function() {
-				$(this).bootstrapSwitch('state', $(this).prop('checked'));
-			})
-
-		})
-		// BS-Stepper Init
-		document.addEventListener('DOMContentLoaded', function() {
-			window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-		})
-
-		// DropzoneJS Demo Code Start
-		Dropzone.autoDiscover = false
-
-		// Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
-		var previewNode = document.querySelector("#template")
-		previewNode.id = ""
-		var previewTemplate = previewNode.parentNode.innerHTML
-		previewNode.parentNode.removeChild(previewNode)
-
-		var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-			url : "/target-url", // Set the url
-			thumbnailWidth : 80,
-			thumbnailHeight : 80,
-			parallelUploads : 20,
-			previewTemplate : previewTemplate,
-			autoQueue : false, // Make sure the files aren't queued until manually added
-			previewsContainer : "#previews", // Define the container to display the previews
-			clickable : ".fileinput-button" // Define the element that should be used as click trigger to select files.
-		})
-
-		myDropzone.on("addedfile", function(file) {
-			// Hookup the start button
-			file.previewElement.querySelector(".start").onclick = function() {
-				myDropzone.enqueueFile(file)
-			}
-		})
-
-		// Update the total progress bar
-		myDropzone
-				.on(
-						"totaluploadprogress",
-						function(progress) {
-							document
-									.querySelector("#total-progress .progress-bar").style.width = progress
-									+ "%"
-						})
-
-		myDropzone.on("sending", function(file) {
-			// Show the total progress bar when upload starts
-			document.querySelector("#total-progress").style.opacity = "1"
-			// And disable the start button
-			file.previewElement.querySelector(".start").setAttribute(
-					"disabled", "disabled")
-		})
-
-		// Hide the total progress bar when nothing's uploading anymore
-		myDropzone.on("queuecomplete", function(progress) {
-			document.querySelector("#total-progress").style.opacity = "0"
-		})
-
-		// Setup the buttons for all transfers
-		// The "add files" button doesn't need to be setup because the config
-		// `clickable` has already been specified.
-		document.querySelector("#actions .start").onclick = function() {
-			myDropzone.enqueueFiles(myDropzone
-					.getFilesWithStatus(Dropzone.ADDED))
-		}
-		document.querySelector("#actions .cancel").onclick = function() {
-			myDropzone.removeAllFiles(true)
-		}
-		// DropzoneJS Demo Code End
 	</script>
 </body>
 </html>
