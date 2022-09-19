@@ -22,5 +22,10 @@ public class AdminController {
 		return new ModelAndView("admin/regist");
 	}
 	
-	
+	//관리자 메인페이지 요청
+	@GetMapping("/admin/main")
+	public ModelAndView getMain() {
+		ModelAndView mav = new ModelAndView("admin/index");
+		return mav;
+	}
 }

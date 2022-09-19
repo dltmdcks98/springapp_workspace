@@ -52,6 +52,12 @@ input[type=button]:hover {
 				},
 				success:function(result,status,xhr){
 					console.log(result+" "+status);
+					if(result=="1"){
+						//관리자 모드 메인 페이지로 들어가기
+						location.href="/admin/main";
+					}else{	
+						alert("로그인 정보가 올바르지 않습니다.");
+					}
 				}
 			});
 		});
