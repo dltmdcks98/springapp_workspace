@@ -36,17 +36,23 @@ public class AdminRestController {
 	
 	//로그인 요청
 	@PostMapping("/admin/login")
-	public String login(Admin admin) {
+	public ResponseEntity<String> login(Admin admin) {
 		//db에 패스워드를 비교하기 전에, 먼저 클라이언트가 전송한 password를 hash값으로 변경한 후 비교해야 함
 		String hashedValue = hashManager.getConvertedPassword(admin.getPass());//평문->hash
 		admin.setPass(hashedValue);//DTO의 패스워드 값을 해쉬 값으로 교체 
 		
 		Admin obj = adminService.selectByIdAndPass(admin);//해당 아이디와 패스워드가 일치하는 회원이 있을때, DTO가 null이 아님
 		System.out.println("로그인결과 : "+obj);
-		return null;
+		
+		ResponseEntity<String> entity = new ResponseEntity<String>("1", HttpStatus.OK);
+		
+		return entity;
 	}
+	
+	
 	@ExceptionHandler(AdminException.class)
-	public String handleException(AdminException e){
-		return e.getMessage();
+	public ResponseEntity handleException(AdminException e){
+		ResponseEntity<String> entity = new ResponseEntity<String>("0", HttpStatus.OK);
+		return entity;
 	}
 }

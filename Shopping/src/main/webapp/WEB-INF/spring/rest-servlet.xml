@@ -15,4 +15,13 @@
 	<!-- 비동기 요청을 받는 모든 Rest계열의 컨트롤러 생성 -->
 	<mvc:annotation-driven />
 	<context:component-scan base-package="com.academy.shopping.restcontroller" />
+	
+	<!-- jackson binder 를 이용하여 java객체와 json간 변환시 언어 인코딩 처리 
+		ResponseBody의 값이 자동으로 json으로 바뀜
+	-->
+	<bean id="mappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<value>application/json;charset=utf-8</value>
+		</property>
+	</bean>
 </beans>

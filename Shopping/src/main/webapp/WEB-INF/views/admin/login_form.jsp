@@ -47,11 +47,11 @@ input[type=button]:hover {
 				url:"/rest/admin/login",
 				type:"post",
 				data:{
-					user_id : $("input[name='user_id']").val(),
+					user_id:$("input[name='user_id']").val(),
 					pass:$("input[name='pass']").val()
 				},
 				success:function(result,status,xhr){
-					alert(result);
+					console.log(result+" "+status);
 				}
 			});
 		});
@@ -64,9 +64,9 @@ input[type=button]:hover {
 <div class="container">
 <h3>Admin Login Form</h3>
   <form>
-    <input type="text" name="user_id" placeholder="Your ID..">
+    <input type="text" 			name="user_id" 	placeholder="Your ID..">
 
-    <input type="password"  name="pass" placeholder="Your Pass..">
+    <input type="password"  	name="pass" 		placeholder="Your Pass..">
     
     <input type="button" value="관리자 로그인">
     <input type="button" value="관리자 등록" onClick="location.href='/admin/registform'">
