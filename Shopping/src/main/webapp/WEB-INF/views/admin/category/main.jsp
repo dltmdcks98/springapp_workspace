@@ -279,7 +279,8 @@
 
 			var sel = $($("select")[0]);
 			$(sel).empty();//기존 아이템을 모두 초기화
-
+			 $($("input[name='category_name']")[0]).empty();
+			
 			var tag = "";
 			for (var i = 0; i < jsonList.length; i++) {
 				var topcategory = jsonList[i];//상위 카테고리 json
@@ -299,6 +300,7 @@
 				},
 				success : function(result, status, xhr) {
 					getTopList();
+					
 				},
 				error : function(xhr, status, error) {
 					alert(status, +", " + error);
