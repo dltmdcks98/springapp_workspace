@@ -295,7 +295,7 @@
 				url : "/rest/admin/topcategory",
 				type : "post",
 				data : {
-					category_name : $($("input[name='category_name'][0]")).val()
+					category_name : $($("input[name='category_name']")[0]).val()
 				},
 				success : function(result, status, xhr) {
 					getTopList();
