@@ -80,7 +80,7 @@
                   <input type="text" class="form-control" placeholder="브랜드">
                   <input type="number" class="form-control" placeholder="원가격">
                   <input type="number" class="form-control" placeholder="할인가격">
-                  <textarea class="form-control" placeholder="간략 설명"></textarea>
+                  <textarea class="form-control" id="summernote" placeholder="간략 설명"></textarea>
                </div>
               
                 <!-- /.form-group -->
@@ -203,6 +203,9 @@ function printSubList(jsonList){
    $(sel).append(tag);
 }
 $(function(){
+	 // Summernote
+    $('#summernote').summernote();
+    
    getTopList();
    
    $($("select")[0]).change(function(){

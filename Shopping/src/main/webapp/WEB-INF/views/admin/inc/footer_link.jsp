@@ -32,3 +32,5 @@
  	<!-- AdminLTE for demo purposes -->
 	<!--<script src="/static/admin/dist/js/demo.js"></script> -->
 	<!-- Page specific script -->
+	<!-- Summernote -->
+	<script src="/static/admin/plugins/summernote/summernote-bs4.min.js"></script>
