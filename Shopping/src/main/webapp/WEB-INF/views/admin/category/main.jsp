@@ -267,39 +267,7 @@
 	</div>
 	<!-- ./wrapper -->
 
-	<!-- jQuery -->
-	<script src="/static/admin/plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
-	<script
-		src="/static/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- Select2 -->
-	<script src="/static/admin/plugins/select2/js/select2.full.min.js"></script>
-	<!-- Bootstrap4 Duallistbox -->
-	<script
-		src="/static/admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-	<!-- InputMask -->
-	<script src="/static/admin/plugins/moment/moment.min.js"></script>
-	<script src="/static/admin/plugins/inputmask/jquery.inputmask.min.js"></script>
-	<!-- date-range-picker -->
-	<script src="/static/admin/plugins/daterangepicker/daterangepicker.js"></script>
-	<!-- bootstrap color picker -->
-	<script
-		src="/static/admin/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-	<!-- Tempusdominus Bootstrap 4 -->
-	<script
-		src="/static/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-	<!-- Bootstrap Switch -->
-	<script
-		src="/static/admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-	<!-- BS-Stepper -->
-	<script src="/static/admin/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-	<!-- dropzonejs -->
-	<script src="/static/admin/plugins/dropzone/min/dropzone.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="/static/admin/dist/js/adminlte.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="/static/admin/dist/js/demo.js"></script>
-	<!-- Page specific script -->
+<%@include file="../inc/footer_link.jsp" %>
 	<script>
 		function getTopList() {
 			$.ajax({
@@ -365,12 +333,43 @@
 				}
 			});
 		}
+		
+		/*-------- 하위 카테고리------ */
+		//선택한 상위 카테고리에 소속된 하위 목록 가져오기
+		function getSubList(topcategory_id){
+			$.ajax({
+				url : "/rest/admin/subcategory/"+topcategory_id,
+				type : "get",
+				success : function(result, status, xhr) {
+					printSubList(result);
+				},
+				error:function(xhr,status,error){
+					
+				}
+
+			});
+		}
+		function printSubList(jsonList){
+			var sel = $($("select")[1]);
+			$(sel).empty();//기존 아이템을 모두 초기화
+
+			var tag = "";
+			console.log(jsonList.length);
+			for (var i = 0; i < jsonList.length; i++) {
+				var subcategory = jsonList[i];//상위 카테고리 json
+				console.log(subcategory);
+				tag += "<option value=\""+subcategory.subcategory_id+"\">"
+						+ subcategory.category_name + "</option>";
+			}
+			$(sel).append(tag);
+			
+		}
 		$(function() {
 			getTopList();//상위카테로길의 목록 가져오기
 
 			$($("select")[0]).change(function() {
 				/* alert("당신이 선택한 아이템의 value값은 :" + $(this).val()); */
-				
+				getSubList($(this).val());
 			});
 
 		});

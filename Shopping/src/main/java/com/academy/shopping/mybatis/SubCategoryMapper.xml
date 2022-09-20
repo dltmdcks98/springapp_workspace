@@ -18,6 +18,7 @@
 		select subcategory_id, category_name, topcategory_id from subcategory
 	</select>
 	
+	<!--해당 상위 카테고리에 소속된 하위 카테고리들  -->
 	<select id="selectByTopCategoryId" parameterType="int" resultMap="subcategoryMap">
 		select subcategory_id, category_name, topcategory_id from subcategory where topcategory_id=#{topcategory_id}
 	</select>

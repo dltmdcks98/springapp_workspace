@@ -2,13 +2,18 @@ package com.academy.shopping.model.category;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.academy.shopping.exception.SubCategoryException;
 import com.academy.shopping.model.domain.SubCategory;
 
 @Service
 public class SubCategoryServiceImpl implements SubCategoryService{
-
+	
+	@Autowired
+	private SubCategoryDAO subCategoryDAO;
+	
 	@Override
 	public List selectAll() {
 		// TODO Auto-generated method stub
@@ -24,13 +29,12 @@ public class SubCategoryServiceImpl implements SubCategoryService{
 	@Override
 	public List selectByTopCategoryId(int topcategory_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return subCategoryDAO.selectByTopCategoryId(topcategory_id);
 	}
 
 	@Override
-	public void insert(SubCategory subCategory) {
-		// TODO Auto-generated method stub
-		
+	public void insert(SubCategory subCategory)throws SubCategoryException {
+		subCategoryDAO.insert(subCategory);
 	}
 
 	@Override
