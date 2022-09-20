@@ -204,9 +204,8 @@
 										</div>
 										<select class="form-control select" style="width: 100%;"
 											size="20">
-											<option selected="selected">Alabama</option>
-											<option>Alaska</option>
-											<option>Washington</option>
+											<option selected="selected">Loading.....</option>
+										
 										</select>
 									</div>
 									<!--/.form-group  -->
@@ -227,9 +226,6 @@
 										<select class="form-control select"
 											style="width: 100%;" size="20">
 
-											<option selected="selected">Alabama</option>
-											<option>Alaska</option>
-											<option>California</option>
 										</select>
 									</div>
 									<!--/.form-group  -->
@@ -300,7 +296,7 @@
 				url : "/rest/admin/topcategory",
 				type : "post",
 				data : {
-					category_name : $("input[name='category_name']").val()
+					category_name : $($("input[name='category_name'][0]")).val()
 				},
 				success : function(result, status, xhr) {
 					getTopList();
@@ -311,6 +307,8 @@
 
 			});
 		}
+		/*-------- 하위 카테고리------ */
+
 		//하위 카테고리에 대한 비동기 등록 요청
 		//주의) 반드시 상위 카테고리가 하나라도 선택이 되어있어야 한다.(유효성 체크)
 		function registSub(){
@@ -324,17 +322,16 @@
 				url:"/rest/admin/subcategory",
 				type:"post",
 				data:{
-					
+					"category_name":$($("input[name='category_name']")[1]).val(),
+					"topcategory.topcategory_id":$($("select")[0]).val()
 				},
 				success:function(result,status,xhr){
-					
+					getSubList($($("select")[0]).val());
 				},error:function(xhr,status,error){
 					
 				}
 			});
 		}
-		
-		/*-------- 하위 카테고리------ */
 		//선택한 상위 카테고리에 소속된 하위 목록 가져오기
 		function getSubList(topcategory_id){
 			$.ajax({
@@ -357,7 +354,6 @@
 			console.log(jsonList.length);
 			for (var i = 0; i < jsonList.length; i++) {
 				var subcategory = jsonList[i];//상위 카테고리 json
-				console.log(subcategory);
 				tag += "<option value=\""+subcategory.subcategory_id+"\">"
 						+ subcategory.category_name + "</option>";
 			}
