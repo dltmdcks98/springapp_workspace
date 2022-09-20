@@ -14,8 +14,8 @@
 	</resultMap>
 
 	<insert id="insert" parameterType="Product">
-		insert into product(product_id,brand,price,discount,memo,detail,product_img,subcategory_id) 
-		values(seq_product.nextval,#{brand},#{price},#{discount},#{memo},#{detail},#{product_img},#{subcategory.subcategory_id})
+		insert into product(product_id,product_name,brand,price,discount,memo,detail,product_img,subcategory_id) 
+		values(seq_product.nextval,#{product_name},#{brand},#{price},#{discount},#{memo},#{detail},#{product_img},#{subcategory.subcategory_id})
 	</insert>
 
 	<select id="selectAll" resultMap="productMap">
