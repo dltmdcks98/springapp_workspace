@@ -13,9 +13,13 @@
 		insert into subcategory(subcategory_id,category_name, topcategory_id)
 		values(seq_subcategory.nextval,#{category_name},#{topcategory.topcategory_id})
 	</insert>
-	
+
 	<select id="selectAll" resultMap="subcategoryMap">
 		select subcategory_id, category_name, topcategory_id from subcategory
+	</select>
+
+	<select id="select" parameterType="int">
+		select * from subcategory where subcategory_id=#{subcategory_id}
 	</select>
 	
 	<!--해당 상위 카테고리에 소속된 하위 카테고리들  -->

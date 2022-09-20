@@ -8,6 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Advanced form elements</title>
    <%@ include file="../inc/header_link.jsp" %>
+<style >
+	.col-md-9 *{
+		margin:2px;'
+	}
+</style>
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -39,6 +45,7 @@
       <div class="container-fluid">
         <!-- SELECT2 EXAMPLE -->
         <div class="card card-primary">
+        <form>
           <div class="card-header">
             <h3 class="card-title">상품 등록</h3>
 
@@ -76,11 +83,16 @@
                    </div>
                 </div>
                <div class="col-md-9">
-                  <input type="text" class="form-control" placeholder="상품명">
-                  <input type="text" class="form-control" placeholder="브랜드">
-                  <input type="number" class="form-control" placeholder="원가격">
-                  <input type="number" class="form-control" placeholder="할인가격">
-                  <textarea class="form-control" id="summernote" placeholder="간략 설명"></textarea>
+	                  <input type="text" class="form-control" placeholder="상품명">
+	                  <input type="text" class="form-control" placeholder="브랜드">
+	                  <input type="number" class="form-control" placeholder="원가격">
+	                  <input type="number" class="form-control" placeholder="할인가격">
+	                  <textarea class="form-control" placeholder="간략 설명" ></textarea>
+	                  <textarea class="form-control" id="summernote" placeholder="간략 설명"></textarea>
+	                  <input type="file" class="form-control" placeholder="상품 이미지 선택" name="photo">
+	                  
+	                  <button class="btn btn-info" onClick="registProduct()">상품등록</button>
+	                  <button class="btn btn-info">목록보기</button>
                </div>
               
                 <!-- /.form-group -->
@@ -90,9 +102,9 @@
             <!-- /.row -->     
           <!-- /.card-body -->
           <div class="card-footer">
-            Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
-            the plugin.
+            원하는 아이템을 선택후 수정, 삭제 가능
           </div>
+          </form>
         </div>
         <!-- /.card -->
 
@@ -139,44 +151,6 @@ function printTopList(jsonList){
    }
    $(sel).append(tag);
 }
-function registTop(){
-   $.ajax({
-      url:"/rest/admin/topcategory",
-      type:"post",
-      data:{
-         category_name:$($("input[name='category_name'][0]")).val()
-      },
-      success:function(result, status, xhr){
-         alert(status);
-      },
-      error:function(xhr, status, error){
-         alert(status+", "+error);
-      }
-   })
-}
-
-//하위 카테고리에 대한 비동기 등록요청
-//주의) 반드시 상위 카테고리가 하나라도 선택되어있어야 한다(유효성 체크)
-function registSub(){
-   if($($("select")[0]).prop('selectedIndex')==-1){
-      alert("좌측 영역에서 상위카테고리를 선택하세요");
-      return;
-   }
-   $.ajax({
-      url:"/rest/admin/subcategory",
-      type:"post",
-      data:{
-         "category_name":$($("input[name='category_name']")[1]).val(),
-         "topcategory.topcategory_id":$($("select")[0]).val()
-      },
-      success:function(result, status, xhr){
-         alert(result);
-         getSubList($($("select")[0]).val())
-      },
-      error:function(xhr, status, error){
-      }
-   })      
-}
 
 //선택한 상위 카테고리에 소속된 하위 목록 가져오기
 function getSubList(topcategory_id){
@@ -202,9 +176,27 @@ function printSubList(jsonList){
    }
    $(sel).append(tag);
 }
+
+
+//상품 등록 요청
+function registProduct(){
+	if(confirm("상품을 등록하시겠어요?")){
+		
+		$("form").attr({
+			"action":"/admin/product/regist",
+			"method":"post",
+			"enctype":"multipart/form-data"
+		});
+		$("form").submit();
+	}
+}
+
 $(function(){
 	 // Summernote
-    $('#summernote').summernote();
+    $('#summernote').summernote({
+    	height:200
+    	
+    });
     
    getTopList();
    
