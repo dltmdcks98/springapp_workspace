@@ -1,7 +1,11 @@
+<%@page import="com.academy.shopping.model.domain.Product"%>
+<%@page import="java.util.List"%>
 <%@page
 	import="com.academy.shopping.restcontroller.TopCategoryRestController"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-
+<%
+	List<Product> productList = (List) request.getAttribute("productList");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,17 +76,19 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <%for(int i=0; i<productList.size();i++){ %>
+                  <%Product product = productList.get(i); %>
                     <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td><%=i %></td>
+                      <td><%=product.getSubcategory().getCategory_name() %></td>
+                      <td><img src="/static/data/<%=product.getProduct_img() %>" width="45px" ></td>
+                      <td><%=product.getProduct_name() %></td>
+                      <td><%=product.getBrand() %></td>
+                      <td><%=product.getPrice() %></td>
+                      <td><%=product.getDiscount() %></td>
+                      <td><%=product.getProduct_img() %></td>
                     </tr>
-                   
+                   <%} %>
                   </tbody>
                 </table>
                 <button class="btn btn-primary" onClick="location.href='/admin/product/registform';">상품등록</button>

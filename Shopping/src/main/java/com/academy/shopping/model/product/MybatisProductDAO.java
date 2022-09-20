@@ -17,8 +17,8 @@ public class MybatisProductDAO implements ProductDAO{
 	
 	@Override
 	public List selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return sqlSessionTemplate.selectList("Product.selectAll");
 	}
 
 	@Override

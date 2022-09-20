@@ -1,9 +1,7 @@
 package com.academy.shopping.controller;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.academy.shopping.exception.ProductException;
 import com.academy.shopping.exception.UploadException;
 import com.academy.shopping.model.domain.Product;
 import com.academy.shopping.model.product.ProductService;
-import com.academy.shopping.model.util.FileManager;
 
 @Controller
 public class ProductController {
@@ -30,6 +26,8 @@ public class ProductController {
 	public ModelAndView getList() {
 		ModelAndView mav = new ModelAndView("admin/product/main");
 		
+		List productList = productService.selectAll();
+		mav.addObject("productList",productList);//저장
 		return mav;
 	}
 	
@@ -60,4 +58,6 @@ public class ProductController {
 		mav.addObject("e",e);
 		return mav;
 	}
+	
+	
 }
