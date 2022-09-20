@@ -262,8 +262,7 @@
 		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
-
-<%@include file="../inc/footer_link.jsp" %>
+<%@ include file="../inc/footer_link.jsp" %>
 	<script>
 		function getTopList() {
 			$.ajax({
