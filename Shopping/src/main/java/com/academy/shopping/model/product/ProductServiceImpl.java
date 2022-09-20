@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.academy.shopping.exception.ProductException;
+import com.academy.shopping.exception.UploadException;
 import com.academy.shopping.model.domain.Product;
 import com.academy.shopping.model.util.FileManager;
 
@@ -31,11 +34,14 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	//regist = DAO의 insert + file Upload
-	@Override
-	public void regist(Product product) throws ProductException {
-		fileManager.save();//file upload
-	
+	//2중 하나라도 안되면 무효
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void regist(Product product,String savePath) throws UploadException, ProductException {
+		String filename = fileManager.save(product,savePath);//file upload
+		product.setProduct_img(filename);//새롭게 생성된 파일명 저장
+		
 		productDAO.insert(product);//DB저장
+			
 	}
 
 	@Override

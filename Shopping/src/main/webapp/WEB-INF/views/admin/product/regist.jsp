@@ -76,19 +76,19 @@
                    <div class="form-group">
                      <label>하위 카테고리</label>
 
-                     <select class="form-control select" style="width: 100%;" size="7" name="sub">
+                     <select class="form-control select" style="width: 100%;" size="7" name="subcategory.subcategory_id">
                      </select>
                    </div>
                                  
                    </div>
                 </div>
                <div class="col-md-9">
-	                  <input type="text" class="form-control" placeholder="상품명">
-	                  <input type="text" class="form-control" placeholder="브랜드">
-	                  <input type="number" class="form-control" placeholder="원가격">
-	                  <input type="number" class="form-control" placeholder="할인가격">
-	                  <textarea class="form-control" placeholder="간략 설명" ></textarea>
-	                  <textarea class="form-control" id="summernote" placeholder="간략 설명"></textarea>
+	                  <input type="text" name="product_name"class="form-control" placeholder="상품명">
+	                  <input type="text" name="brand" class="form-control" placeholder="브랜드">
+	                  <input type="number" name="price"class="form-control" placeholder="원가격">
+	                  <input type="number"  name="discount" class="form-control" placeholder="할인가격">
+	                  <textarea name="memo" class="form-control" placeholder="간략 설명" ></textarea>
+	                  <textarea name="detail" class="form-control" id="summernote" placeholder="간략 설명"></textarea>
 	                  <input type="file" class="form-control" placeholder="상품 이미지 선택" name="photo">
 	                  
 	                  <button class="btn btn-info" onClick="registProduct()">상품등록</button>
@@ -167,7 +167,7 @@ function getSubList(topcategory_id){
 }
 
 function printSubList(jsonList){
-   var sel=$("select[name='sub']");
+   var sel=$("select[name='subcategory.subcategory_id']");
    $(sel).empty();  //기존 카테고리 초기화
    var tag="";
    for(var i=0; i<jsonList.length; i++){
