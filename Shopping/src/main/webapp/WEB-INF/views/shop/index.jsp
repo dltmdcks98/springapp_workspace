@@ -46,7 +46,7 @@
             </a></li>
         </ul>
         <div class="offcanvas__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+            <a href="./index.html"><img src="static/shop/img/logo.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
@@ -62,7 +62,7 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.html"><img src="static/shop/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
@@ -421,7 +421,7 @@
                     </div>
                     <div class="trend__item">
                         <div class="trend__item__pic">
-                            <img src="img/trend/ht-1.jpg" alt="">
+                            <img src="static/shop/img/trend/ht-1.jpg" alt="">
                         </div>
                         <div class="trend__item__text">
                             <h6>Chain bucket bag</h6>
@@ -437,7 +437,7 @@
                     </div>
                     <div class="trend__item">
                         <div class="trend__item__pic">
-                            <img src="img/trend/ht-2.jpg" alt="">
+                            <img src="static/shop/img/trend/ht-2.jpg" alt="">
                         </div>
                         <div class="trend__item__text">
                             <h6>Pendant earrings</h6>
@@ -453,7 +453,7 @@
                     </div>
                     <div class="trend__item">
                         <div class="trend__item__pic">
-                            <img src="img/trend/ht-3.jpg" alt="">
+                            <img src="static/shop/img/trend/ht-3.jpg" alt="">
                         </div>
                         <div class="trend__item__text">
                             <h6>Cotton T-Shirt</h6>
@@ -476,7 +476,7 @@
                     </div>
                     <div class="trend__item">
                         <div class="trend__item__pic">
-                            <img src="img/trend/bs-1.jpg" alt="">
+                            <img src="static/shop/img/trend/bs-1.jpg" alt="">
                         </div>
                         <div class="trend__item__text">
                             <h6>Cotton T-Shirt</h6>
@@ -492,7 +492,7 @@
                     </div>
                     <div class="trend__item">
                         <div class="trend__item__pic">
-                            <img src="img/trend/bs-2.jpg" alt="">
+                            <img src="static/shop/img/trend/bs-2.jpg" alt="">
                         </div>
                         <div class="trend__item__text">
                             <h6>Zip-pockets pebbled tote <br />briefcase</h6>
@@ -508,7 +508,7 @@
                     </div>
                     <div class="trend__item">
                         <div class="trend__item__pic">
-                            <img src="img/trend/bs-3.jpg" alt="">
+                            <img src="static/shop/img/trend/bs-3.jpg" alt="">
                         </div>
                         <div class="trend__item__text">
                             <h6>Round leather bag</h6>
@@ -531,7 +531,7 @@
                     </div>
                     <div class="trend__item">
                         <div class="trend__item__pic">
-                            <img src="img/trend/f-1.jpg" alt="">
+                            <img src="static/shop/img/trend/f-1.jpg" alt="">
                         </div>
                         <div class="trend__item__text">
                             <h6>Bow wrap skirt</h6>
@@ -547,7 +547,7 @@
                     </div>
                     <div class="trend__item">
                         <div class="trend__item__pic">
-                            <img src="img/trend/f-2.jpg" alt="">
+                            <img src="static/shop/img/trend/f-2.jpg" alt="">
                         </div>
                         <div class="trend__item__text">
                             <h6>Metallic earrings</h6>
@@ -563,7 +563,7 @@
                     </div>
                     <div class="trend__item">
                         <div class="trend__item__pic">
-                            <img src="img/trend/f-3.jpg" alt="">
+                            <img src="static/shop/img/trend/f-3.jpg" alt="">
                         </div>
                         <div class="trend__item__text">
                             <h6>Flap cross-body bag</h6>
@@ -590,7 +590,7 @@
         <div class="row">
             <div class="col-lg-6 p-0">
                 <div class="discount__pic">
-                    <img src="img/discount.jpg" alt="">
+                    <img src="static/shop/img/discount.jpg" alt="">
                 </div>
             </div>
             <div class="col-lg-6 p-0">
@@ -727,16 +727,16 @@
             <div class="col-lg-4 col-md-6 col-sm-7">
                 <div class="footer__about">
                     <div class="footer__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.html"><img src="static/shop/img/logo.png" alt=""></a>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                     cilisis.</p>
                     <div class="footer__payment">
-                        <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
-                        <a href="#"><img src="img/payment/payment-2.png" alt=""></a>
-                        <a href="#"><img src="img/payment/payment-3.png" alt=""></a>
-                        <a href="#"><img src="img/payment/payment-4.png" alt=""></a>
-                        <a href="#"><img src="img/payment/payment-5.png" alt=""></a>
+                        <a href="#"><img src="static/shop/img/payment/payment-1.png" alt=""></a>
+                        <a href="#"><img src="static/shop/img/payment/payment-2.png" alt=""></a>
+                        <a href="#"><img src="static/shop/img/payment/payment-3.png" alt=""></a>
+                        <a href="#"><img src="static/shop/img/payment/payment-4.png" alt=""></a>
+                        <a href="#"><img src="static/shop/img/payment/payment-5.png" alt=""></a>
                     </div>
                 </div>
             </div>

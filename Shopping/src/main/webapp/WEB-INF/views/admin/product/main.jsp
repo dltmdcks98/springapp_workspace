@@ -82,7 +82,7 @@
                       <td><%=i %></td>
                       <td><%=product.getSubcategory().getCategory_name() %></td>
                       <td><img src="/static/data/<%=product.getProduct_img() %>" width="45px" ></td>
-                      <td><%=product.getProduct_name() %></td>
+                      <td><a href="/admin/subcategory/<%=product.getProduct_id()%>"><%=product.getProduct_name() %></a></td>
                       <td><%=product.getBrand() %></td>
                       <td><%=product.getPrice() %></td>
                       <td><%=product.getDiscount() %></td>

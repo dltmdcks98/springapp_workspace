@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,12 +23,20 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	//관리자 - 상품 목록 전체 조회
 	@GetMapping("/admin/product/list")
 	public ModelAndView getList() {
 		ModelAndView mav = new ModelAndView("admin/product/main");
 		
 		List productList = productService.selectAll();
 		mav.addObject("productList",productList);//저장
+		return mav;
+	}
+	
+	//관리자 - 상품 상세 조회
+	@GetMapping("/admin/subcategory/{product_id}")
+	public ModelAndView getDetail(@PathVariable("product_id") int product_id) {
+		ModelAndView mav = new ModelAndView("admin/product/detail");
 		return mav;
 	}
 	
