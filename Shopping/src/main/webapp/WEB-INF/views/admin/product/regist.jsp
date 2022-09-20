@@ -91,8 +91,8 @@
 	                  <textarea name="detail" class="form-control" id="summernote" placeholder="간략 설명"></textarea>
 	                  <input type="file" class="form-control" placeholder="상품 이미지 선택" name="photo">
 	                  
-	                  <button class="btn btn-info" onClick="registProduct()">상품등록</button>
-	                  <button class="btn btn-info">목록보기</button>
+	                  <button type="button" class="btn btn-info" onClick="registProduct()">상품등록</button>
+	                  <button type="button" class="btn btn-info" onClick="location.href='/admin/product/list';">목록보기</button>
                </div>
               
                 <!-- /.form-group -->

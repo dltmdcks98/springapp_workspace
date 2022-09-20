@@ -18,14 +18,15 @@
 		select subcategory_id, category_name, topcategory_id from subcategory
 	</select>
 
-	<select id="select" parameterType="int">
-		select * from subcategory where subcategory_id=#{subcategory_id}
-	</select>
 	
 	<!--해당 상위 카테고리에 소속된 하위 카테고리들  -->
 	<select id="selectByTopCategoryId" parameterType="int" resultMap="subcategoryMap">
 		select subcategory_id, category_name, topcategory_id from subcategory where topcategory_id=#{topcategory_id}
 	</select>
 
+<!-- 서브 카테고리 1건 가져오기 -->
+	<select id="select" parameterType="int" resultType="Subcategory">
+		select * from subcategory where subcategory_id=#{subcategory_id}
+	</select>
 	
 </mapper> 

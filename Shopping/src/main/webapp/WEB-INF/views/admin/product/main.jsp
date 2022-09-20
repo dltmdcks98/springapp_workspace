@@ -61,11 +61,14 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>User</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Reason</th>
+                      <th>No</th>
+                      <th>카테고리</th>
+                      <th>사진</th>
+                      <th>상품명</th>
+                      <th>브랜드</th>
+                      <th>가격</th>
+                      <th>할인가격</th>
+                      <th>파일명</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -73,30 +76,13 @@
                       <td>183</td>
                       <td>John Doe</td>
                       <td>11-7-2014</td>
+                      <td>11-7-2014</td>
                       <td><span class="tag tag-success">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
                     </tr>
-                    <tr>
-                      <td>219</td>
-                      <td>Alexander Pierce</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-warning">Pending</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>657</td>
-                      <td>Bob Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-primary">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>175</td>
-                      <td>Mike Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-danger">Denied</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
+                   
                   </tbody>
                 </table>
                 <button class="btn btn-primary" onClick="location.href='/admin/product/registform';">상품등록</button>
