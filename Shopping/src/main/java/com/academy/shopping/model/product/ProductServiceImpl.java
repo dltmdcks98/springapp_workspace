@@ -25,7 +25,10 @@ public class ProductServiceImpl implements ProductService{
 	public List selectAll() {
 		return productDAO.selectAll();
 	}
-
+	@Override
+	public List selectBySubId(int subcategory_id) {
+		return productDAO.selectBySubId(subcategory_id);
+	}
 	@Override
 	public Product select(int product_id) {
 		// TODO Auto-generated method stub

@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.academy.shopping.model.category.TopCategoryService;
+import com.academy.shopping.model.product.ProductService;
 
 @Controller
 public class ShopProductContorller {
@@ -15,12 +17,31 @@ public class ShopProductContorller {
 	@Autowired
 	private TopCategoryService topCategoryService;
 	
-	//상품 목록 페이지 요청
+	@Autowired
+	private ProductService productService;
+	
+	//상품 목록 페이지 요청 
+//	@RequestParam(defaultValue="0") : 파라미터값이 아무것도 넘어오지 않았을때 기본값을 설정
 	@GetMapping("/shop/product")
-	public ModelAndView getProductMain() {
+	public ModelAndView getProductMain(@RequestParam(defaultValue="0") int subcategory_id) {
+		//카테고리 가져오기
 		List topCategoryList =topCategoryService.selectAll();
+		
+		//하위 카테고리에 소속된 상품 가져오기(만일 선택된 하위카테고리가 없는 상태라면 모두 가져오기)
+		List productList=null;
+ 
+		if(subcategory_id==0) {
+			productList = productService.selectAll();
+		}else {
+			productList = productService.selectBySubId(subcategory_id);
+		}
+		
+		
+		
+		
 		ModelAndView mav = new ModelAndView("shop/list");
 		mav.addObject("topCategoryList", topCategoryList);
+		mav.addObject("productList", productList);
 		return mav;
 		
 	}

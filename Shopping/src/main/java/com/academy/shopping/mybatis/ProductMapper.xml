@@ -17,12 +17,14 @@
 		insert into product(product_id,product_name,brand,price,discount,memo,detail,product_img,subcategory_id) 
 		values(seq_product.nextval,#{product_name},#{brand},#{price},#{discount},#{memo},#{detail},#{product_img},#{subcategory.subcategory_id})
 	</insert>
-
+	
+	<!-- 모두가져오기 -->
 	<select id="selectAll" resultMap="productMap">
 		select * from product 
 	</select>
 	
-	<select id="select" parameterType="int" resultType="Product">
-		select * from product where product_id=#{product_id}
+	<!-- 선택된 하위 카테고리에 소속된 상품 가져오기 -->
+	<select id="selectBySubId" parameterType="int" resultType="Product" resultMap="productMap">
+		select * from product where subcategory_id=#{subcategory_id}
 	</select>
 </mapper> 
