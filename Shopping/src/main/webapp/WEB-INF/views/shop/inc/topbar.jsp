@@ -49,7 +49,7 @@
                             
 							<%for(int i=0;i<topCategoryList.size();i++){ %>   
 							<%TopCategory topCategory = topCategoryList.get(i); %>                         
-                            	<li><a href="#"><%=topCategory.getCategory_name() %></a></li>
+                            	<li><a href="/shop/product?topcategory_id=<%=topCategory.getTopcategory_id()%>"><%=topCategory.getCategory_name() %></a></li>
                             <%} %>
                             <li><a href="/shop/product">Shop</a></li>
                             

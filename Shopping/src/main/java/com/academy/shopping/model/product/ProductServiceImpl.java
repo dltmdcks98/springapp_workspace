@@ -1,5 +1,6 @@
 package com.academy.shopping.model.product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.academy.shopping.exception.ProductException;
 import com.academy.shopping.exception.UploadException;
+import com.academy.shopping.model.category.SubCategoryDAO;
 import com.academy.shopping.model.domain.Product;
+import com.academy.shopping.model.domain.SubCategory;
 import com.academy.shopping.model.util.FileManager;
 
 @Service
 public class ProductServiceImpl implements ProductService{
-
+	
+	//하위 카테고리 목록을 가져올 DAO
+	@Autowired
+	private SubCategoryDAO subCategoryDAO;
+	
 	@Autowired
 	private ProductDAO productDAO;
 
@@ -25,6 +32,23 @@ public class ProductServiceImpl implements ProductService{
 	public List selectAll() {
 		return productDAO.selectAll();
 	}
+	
+	@Override
+	public List selectByTopId(int topcategory_id) {
+		List<SubCategory> subCategoryList = subCategoryDAO.selectByTopCategoryId(topcategory_id);//SubCategory들의 목록을 반환
+		
+		List productList= new ArrayList();//서브카테고리마다 소속된 상품들을 누적시킬 리스트
+		for(int i=0; i<subCategoryList.size();i++) {
+			SubCategory subCategory = subCategoryList.get(i);
+			List<Product> list=productDAO.selectBySubId(subCategory.getSubcategory_id());
+			for(Product product:list) {//풀어서
+				productList.add(product);//넣기
+			}
+		}
+		
+		return productList;
+	}
+	
 	@Override
 	public List selectBySubId(int subcategory_id) {
 		return productDAO.selectBySubId(subcategory_id);

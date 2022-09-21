@@ -2,38 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Product">
 	<resultMap type="Product" id="productMap">
-		<id 		column="product_id" 			property="product_id"/>
-		<result 	column="product_name" 		property="product_name"/>
-		<result 	column="brand" 					property="brand"/>
-		<result 	column="price" 					property="price"/>
-		<result 	column="discount" 				property="discount"/>
-		<result 	column="memo" 					property="memo"/>
-		<result 	column="detail" 					property="detail"/>
-		<result 	column="product_img" 			property="product_img"/>
-		<association column="subcategory_id" property="subcategory" javaType="Subcategory" select="SubCategory.select" />
+		<id 		column="product_id" 				property="product_id"/>
+		<result 	column="product_name" 			property="product_name"/>
+		<result 	column="brand" 						property="brand"/>
+		<result 	column="price" 						property="price"/>
+		<result 	column="discount" 					property="discount"/>
+		<result 	column="memo" 						property="memo"/>
+		<result 	column="detail" 						property="detail"/>
+		<result 	column="product_img" 				property="product_img"/>
+		<association column="subcategory_id" 	property="subcategory" javaType="Subcategory" select="SubCategory.select" />
 	</resultMap>
 
-	<insert id="insert" parameterType="Product">
-		insert into product(product_id,product_name,brand,price,discount,memo,detail,product_img,subcategory_id) 
-		values(seq_product.nextval,#{product_name},#{brand},#{price},#{discount},#{memo},#{detail},#{product_img},#{subcategory.subcategory_id})
-	</insert>
-	
 	<!-- 모두가져오기 -->
 	<select id="selectAll" resultMap="productMap">
 		select * from product 
 	</select>
 	
 	<!--선택한 상위 카테고리에 소속된 상품 가져오기  -->
-	<select id="selectByTopId" resultMap="productMap" parameterType="int">
+<!-- 	<select id="selectByTopId" resultMap="productMap" parameterType="int">
 		select *
 		from product 
 		where subcategory_id in (
 			select subcategory_id from topcategory 
 				where topcategory_id=#{topcategory_id})
-	</select>
+	</select> 
+		이 쿼리문은 where 문 안은 SubCategory.selectByTopCategoryId 이후는 selectBySubId를 여러번 호출하여 대신할 수 있다.
+	-->
 	
 	<!-- 선택된 하위 카테고리에 소속된 상품 가져오기 -->
 	<select id="selectBySubId" parameterType="int" resultType="Product" resultMap="productMap">
 		select * from product where subcategory_id=#{subcategory_id}
 	</select>
+	
+	<insert id="insert" parameterType="Product">
+		insert into product(product_id,product_name,brand,price,discount,memo,detail,product_img,subcategory_id) 
+		values(seq_product.nextval,#{product_name},#{brand},#{price},#{discount},#{memo},#{detail},#{product_img},#{subcategory.subcategory_id})
+	</insert>
+	
 </mapper> 

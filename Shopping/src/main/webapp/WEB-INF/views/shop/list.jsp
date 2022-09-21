@@ -59,7 +59,7 @@
 	                                            <div class="card-body">
 	                                                <ul>
 	                                                	<%for(SubCategory subCategory:topCategory.getSubList()){ %>
-	                                                    <li><a href="#"><%=subCategory.getCategory_name() %></a></li>
+	                                                    <li><a href="/shop/product?subcategory_id=<%=subCategory.getSubcategory_id()%>"><%=subCategory.getCategory_name() %></a></li>
 	                                                    <%} %>
 	                                                </ul>
 	                                            </div>
