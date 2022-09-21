@@ -23,6 +23,15 @@
 		select * from product 
 	</select>
 	
+	<!--선택한 상위 카테고리에 소속된 상품 가져오기  -->
+	<select id="selectByTopId" resultMap="productMap" parameterType="int">
+		select *
+		from product 
+		where subcategory_id in (
+			select subcategory_id from topcategory 
+				where topcategory_id=#{topcategory_id})
+	</select>
+	
 	<!-- 선택된 하위 카테고리에 소속된 상품 가져오기 -->
 	<select id="selectBySubId" parameterType="int" resultType="Product" resultMap="productMap">
 		select * from product where subcategory_id=#{subcategory_id}
