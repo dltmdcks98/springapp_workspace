@@ -78,7 +78,7 @@
                             <i class="fa fa-star"></i>
                             <span>( 138 reviews )</span>
                         </div>
-                        <div class="product__details__price">won <%=product.getDiscount() %><span>won <%=product.getPrice() %></span></div>
+                        <div class="product__details__price">won <%=CurrencyFormatter.getCurrency(product.getDiscount()) %><span>won <%=CurrencyFormatter.getCurrency(product.getPrice()) %></span></div>
                         <p><%=product.getMemo() %></p>
                         <div class="product__details__button">
                             <div class="quantity">
