@@ -192,13 +192,13 @@
 	                                <div class="product__item__pic set-bg" data-setbg="/static/data/<%=product.getProduct_img()%>">
 	                                    <div class="label new">New</div>
 	                                    <ul class="product__hover">
-	                                        <li><a href="/static/shop/img/shop/shop-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
+	                                        <li><a href="/static/data/<%=product.getProduct_img()%>" class="image-popup"><span class="arrow_expand"></span></a></li>
 	                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
 	                                        <li><a href="#"><span class="icon_bag_alt"></span></a></li>
 	                                    </ul>
 	                                </div>
 	                                <div class="product__item__text">
-	                                    <h6><a href="#"><%=product.getProduct_name() %></a></h6>
+	                                    <h6><a href="/shop/product/view?product_id=<%=product.getProduct_id()%>"><%=product.getProduct_name() %></a></h6>
 	                                    <div class="rating">
 	                                        <i class="fa fa-star"></i>
 	                                        <i class="fa fa-star"></i>
@@ -210,7 +210,7 @@
 	                                    	<s><%=CurrencyFormatter.getCurrency(product.getPrice()) %></s>
 	                                    </div>
 	                                    <div class="product__price">
-	                                    	<%=CurrencyFormatter.getCurrency(product.getDiscount())%>
+	                                    	<%=CurrencyFormatter.getCurrency(product.getDiscount()) %>
 	                                    </div>
 	                                </div>
 	                            </div>

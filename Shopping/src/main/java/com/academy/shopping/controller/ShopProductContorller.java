@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.academy.shopping.model.category.TopCategoryService;
+import com.academy.shopping.model.domain.Product;
 import com.academy.shopping.model.product.ProductService;
 
 @Controller
@@ -39,13 +40,23 @@ public class ShopProductContorller {
 			}
 		}
 		
-		
-		
-		
 		ModelAndView mav = new ModelAndView("shop/list");
 		mav.addObject("topCategoryList", topCategoryList);
 		mav.addObject("productList", productList);
 		return mav;
 		
+	}
+	
+	//상품 상세요청 처리
+	@GetMapping("/shop/product/view")
+	public ModelAndView getDetail(int product_id) {
+		ModelAndView mav = new ModelAndView("shop/detail");
+		
+		List topCategoryList = topCategoryService.selectAll();
+		mav.addObject("topCategoryList",topCategoryList);
+		
+		Product product = productService.select(product_id);
+		mav.addObject("product",product);
+		return mav;
 	}
 }
