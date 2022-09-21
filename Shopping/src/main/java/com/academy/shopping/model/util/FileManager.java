@@ -44,6 +44,29 @@ public class FileManager {
 		
 		return time+"."+ext;//파일명 변환
 	}
+	
+	//엑셀파일 업로드
+	public File saveExcel(String path, MultipartFile excel) {
+		//서버에 올라온 엑셀을 읽어보자
+		//1. 업로드부터 완료
+		File file = null;
+		try {
+			excel.transferTo(file = new File(path+"/"+excel.getOriginalFilename()));
+			System.out.println(file.getAbsolutePath());//파일의 절대경고
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return file;
+	}
+	
+	
+	
+	
 	public static void main(String[] args) {
 		String ext = getExt("d:://////.asdf.asdf.jpg");
 		long time = System.currentTimeMillis();

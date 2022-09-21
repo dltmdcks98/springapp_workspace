@@ -91,7 +91,15 @@
                    <%} %>
                   </tbody>
                 </table>
+                
                 <button class="btn btn-primary" onClick="location.href='/admin/product/registform';">상품등록</button>
+                <button class="btn btn-primary" onClick="showExcel()">엑셀등록</button>
+                <div style="display:none" id="excel-area">
+                	<form id="excel-form">
+		                <input type="file" name="excel" > 
+		                <button type="button" class="btn btn-info" onClick="registExcel()">등록</button>
+					</form>
+				</div>              
               </div>
               <!-- /.card-body -->
             </div>
@@ -122,6 +130,7 @@
 	</div>
 	<!-- ./wrapper -->
 <%@ include file="../inc/footer_link.jsp" %>
+
 	<script>
 		function getTopList() {
 			$.ajax({
@@ -220,15 +229,49 @@
 			$(sel).append(tag);
 			
 		}
-		$(function() {
-			getTopList();//상위카테로길의 목록 가져오기
-
-			$($("select")[0]).change(function() {
-				/* alert("당신이 선택한 아이템의 value값은 :" + $(this).val()); */
-				getSubList($(this).val());
-			});
-
+		
+	//가려져있던 엑셀 등록 폼을 등장시키자
+	function showExcel(){
+		$("#excel-area").css({
+			display:"block"
+			
 		});
+	}
+	//엑셀파일을 이용한 상품일괄 등록
+	function registExcel(){
+		if($("input[name='excel']").val==""){
+			alert("선택한 파일이 없음");
+			return;
+			
+		}
+		if(confirm("액셀로 등록할까요?")){
+		$("#excel-form").attr({
+			"action":"/admin/product/excel",
+			"method":"post",
+			"enctype":"multipart/form-data"
+			
+		});
+			$("#excel-form").submit();
+		}
+	}
+	$(function() {
+		getTopList();//상위카테로길의 목록 가져오기
+
+		$($("select")[0]).change(function() {
+			/* alert("당신이 선택한 아이템의 value값은 :" + $(this).val()); */
+			getSubList($(this).val());
+		});
+		//파일 선택 컴포넌트에 이벤트 연결
+		$("input[name='excel']").change(function(){
+			//선택한 파일 구하기
+			var ext = getExt($(this).val());
+			if(ext!="xls"&& ext!="xlsx"){
+				alert("엑셀만 선택하세요");	
+			}
+		});
+	});
+	
+
 	</script>
 </body>
 </html>

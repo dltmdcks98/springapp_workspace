@@ -1,5 +1,6 @@
 package com.academy.shopping.model.product;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +71,14 @@ public class ProductServiceImpl implements ProductService{
 			
 	}
 
+	@Override
+	public void registByExcel(File file) {
+		
+		//엑셀을 간접적으로 해석하여 insert DAO 에게 시킬것
+		//2003년 이후 버전에서의 전담객체 XSSF
+
+		
+	}
 	@Override
 	public void update(Product product) {
 		// TODO Auto-generated method stub
