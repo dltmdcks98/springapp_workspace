@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,13 +32,23 @@ public class ProductController {
 	private FileManager fileManager;
 	//관리자 - 상품 목록 전체 조회
 	@GetMapping("/admin/product/list")
-	public ModelAndView getList() {
-		ModelAndView mav = new ModelAndView("admin/product/main");
+	public ModelAndView getList(HttpServletRequest request) {
+		//로그인 인증을 거치지 않았다면, 거부
+		HttpSession session = request.getSession();
+		
+		ModelAndView mav =null;
+		if(session.getAttribute("admin")==null) {//인증을 거치지 않고 들어오는 경우
+			mav = new ModelAndView("admin/error/auth");
+		}else {
+			mav =  new ModelAndView("admin/product/main");
+		}
+		
 		
 		List productList = productService.selectAll();
 		mav.addObject("productList",productList);//저장
 		return mav;
 	}
+	
 	
 	//관리자 - 상품 상세 조회
 	@GetMapping("/admin/subcategory/{product_id}")
@@ -78,6 +89,7 @@ public class ProductController {
 		
 		return mav;
 	}
+	
 	//에러 발생시
 	@ExceptionHandler(UploadException.class)
 	public ModelAndView handleException(UploadException e) {
