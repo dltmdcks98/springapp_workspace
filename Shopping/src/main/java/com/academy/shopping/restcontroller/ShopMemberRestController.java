@@ -43,9 +43,10 @@ public class ShopMemberRestController {
 	@GetMapping("/member/{customer_id}")
 	public ResponseEntity<Message> getId(@PathVariable("customer_id") String customer_id){
 		System.out.println("검증할 아이디" + customer_id);
-		
-		
-		return null;
+		memberService.selectCustomerId(customer_id);
+		Message message = new Message(1,customer_id+"는 가입 가능 합니다.");
+		ResponseEntity<Message> entity = new ResponseEntity<Message>(message,HttpStatus.OK);	
+		return entity;
 	}
 	
 	
@@ -53,7 +54,7 @@ public class ShopMemberRestController {
 	@ExceptionHandler(MemberException.class)
 	public ResponseEntity<Message> handleException(MemberException e){
 		
-		Message message = new Message(0,"가입실패");
+		Message message = new Message(0,e.getMessage());
 		
 		ResponseEntity<Message> entity = new ResponseEntity<Message>(message,HttpStatus.OK);
 		

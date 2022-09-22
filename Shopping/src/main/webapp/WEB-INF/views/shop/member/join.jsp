@@ -49,7 +49,7 @@
                    <label for="customer_id" class="col-sm-2 col-form-label">ID</label>
                    <div class="col-sm-8">
                    		<input type="text" class="form-control" id="customer_id" name="customer_id" placeholder="ID">
-                   		<button class="btn btn-warning">중복확인</button>
+                   		<button type="button" class="btn btn-warning">중복확인</button>
                    </div>
                  </div>
                  
@@ -99,7 +99,7 @@
 <!-- Js Plugins -->
 <%@ include file="../inc/plugin.jsp" %>
 <script type="text/javascript">
-var isCheck=false;//중복확인을 수행하였는지 여부
+var isCheck=true;//중복확인을 수행하였는지 여부
 
 function checkId(){
 	if($("customer_id").val()==""){
@@ -112,6 +112,7 @@ function checkId(){
 		type:"get",
 		success:function(result,status,xhr){
 			console.log(result);
+			alert(result.msg);
 		}
 		
 	});

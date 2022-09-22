@@ -28,6 +28,14 @@ public class MybatisMemberDAO implements MemberDAO{
 	}
 
 	@Override
+	public Member selectCustomerId(String customer_id) throws MemberException {
+		Member result = sqlSessionTemplate.selectOne("Member.selectCustomerId",customer_id);
+		if(result!=null) {//중복된 회원 발견
+			throw new MemberException("중복된 아이디가 있습니다.");
+		}
+		return result;
+	}
+	@Override
 	public void insert(Member member) throws MemberException{
 		int result = sqlSessionTemplate.insert("Member.insert",member);
 		if(result==0) {

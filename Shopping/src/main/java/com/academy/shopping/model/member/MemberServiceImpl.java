@@ -25,6 +25,10 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Member selectCustomerId(String customer_id) throws MemberException {
+		return memberDAO.selectCustomerId(customer_id);
+	}
 
 	@Override
 	public void insert(Member member) throws MemberException {
