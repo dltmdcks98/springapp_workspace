@@ -1,16 +1,13 @@
 package com.academy.shopping.model.product;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -86,19 +83,69 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void registByExcel(File file) {
+	public void registByExcel(File file, String ori, String dest) {
 		List<Product> productList=excelParser.getParseResult(file);
 		
 		
 		for(Product product : productList) {
+			//이미지를 서버에 저장(스프링과 상관없이 개발자의 javaSE 능력으로 해결)
+			System.out.println("파일의 경로:"+ori+"/"+product.getProduct_img());
 			
-			//이미지를 서버에 저장
+			FileOutputStream fos =null;
+			FileInputStream fis =null;
+			try {
+				fis= new FileInputStream(ori+"/"+product.getProduct_img());//파일을 대상으로 빨아드림
+				
+				Long time = System.currentTimeMillis();
+				String ext = fileManager.getExt(product.getProduct_img());//확장자
+				String fileName= time+"."+ext;//최종적으로 결정된 파일명
+				
+				//기존 DTO에 생성된 파일명을 대체하자
+				product.setProduct_img(fileName);
+				
+				fos= new FileOutputStream(dest+"/"+fileName);//개발자가 파일명을 생성해야함, empty한 파일 생성
+				
+				
+				int data=-1;
+				while(true) {
+					data=fis.read();//1byte읽음
+					if(data==-1)break;//멈추기 조건
+					fos.write(data);//1byte출력
+				}
+				System.out.println("파일복사 완료");
+				
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				if(fos!=null) {
+					try {
+						fos.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				if(fis!=null) {
+					try {
+						fis.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
 			
 			
 			productDAO.insert(product);//레코드 한건 넣기
 			
 			try {
-				Thread.sleep(200);
+			//반복문 속도를 db insert를 못따라가서
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

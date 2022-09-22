@@ -69,7 +69,10 @@ public class ProductController {
 		File savedFile=fileManager.saveExcel(path,excel);
 		
 		//2.업로드된 엑셀 해석
-		productService.registByExcel(savedFile);
+		productService.registByExcel(savedFile,
+				context.getRealPath("/resources/shop/img/product")
+				,context.getRealPath("/resources/data")
+				);
 		
 		ModelAndView mav = new ModelAndView("redirect:/admin/product/list");
 		
