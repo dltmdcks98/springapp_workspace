@@ -99,7 +99,24 @@
 <!-- Js Plugins -->
 <%@ include file="../inc/plugin.jsp" %>
 <script type="text/javascript">
-var isCheck=true;//중복확인을 수행하였는지 여부
+var isCheck=false;//중복확인을 수행하였는지 여부
+
+function checkId(){
+	if($("customer_id").val()==""){
+		alert("아이디를 입력하세요");
+		return;
+	}
+	
+	$.ajax({
+		url:"/rest/member/"+$("#customer_id").val(),
+		type:"get",
+		success:function(result,status,xhr){
+			console.log(result);
+		}
+		
+	});
+	
+}
 
 function regist(){
 	if(!isCheck){
@@ -117,7 +134,11 @@ function regist(){
 			customer_email:$("#customer_email").val()
 		},
 		success:function(result,status,xhr){
-			alert(result);
+			if(result.code==1){
+				alert(result.msg);
+			}else{
+				alert(result.msg+"\n계속될 경우 관리자에게 연락바랍니다.");
+			}
 		},
 		error:function(xhr,status,error){
 			alert(error);
