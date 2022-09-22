@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,7 @@ import com.academy.shopping.exception.UploadException;
 import com.academy.shopping.model.category.SubCategoryDAO;
 import com.academy.shopping.model.domain.Product;
 import com.academy.shopping.model.domain.SubCategory;
+import com.academy.shopping.model.util.ExcelParser;
 import com.academy.shopping.model.util.FileManager;
 
 @Service
@@ -31,6 +36,11 @@ public class ProductServiceImpl implements ProductService{
 
 	@Autowired
 	private FileManager fileManager;
+	
+	@Autowired
+	private ExcelParser excelParser;
+	
+	
 	
 	@Override
 	public List selectAll() {
@@ -64,6 +74,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	//regist = DAO의 insert + file Upload
+	
 	//2중 하나라도 안되면 무효
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void regist(Product product,String savePath) throws UploadException, ProductException {
@@ -74,26 +85,28 @@ public class ProductServiceImpl implements ProductService{
 			
 	}
 
-	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void registByExcel(File file) {
+		List<Product> productList=excelParser.getParseResult(file);
 		
-		//엑셀을 간접적으로 해석하여 insert DAO 에게 시킬것
-		//2003년 이후 버전에서의 전담객체 XSSF~~~
-
-		//1)에섹파일 접근 해제
-		try {
+		
+		for(Product product : productList) {
 			
-			XSSFWorkbook workbook = new XSSFWorkbook(file);
-			System.out.println("엑셀 접근 성공");
-		} catch (InvalidFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//이미지를 서버에 저장
+			
+			
+			productDAO.insert(product);//레코드 한건 넣기
+			
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
+			
 	}
+	
 	@Override
 	public void update(Product product) {
 		// TODO Auto-generated method stub

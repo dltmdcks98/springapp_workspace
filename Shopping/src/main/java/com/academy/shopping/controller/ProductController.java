@@ -71,7 +71,9 @@ public class ProductController {
 		//2.업로드된 엑셀 해석
 		productService.registByExcel(savedFile);
 		
-		return null;
+		ModelAndView mav = new ModelAndView("redirect:/admin/product/list");
+		
+		return mav;
 	}
 	//에러 발생시
 	@ExceptionHandler(UploadException.class)
