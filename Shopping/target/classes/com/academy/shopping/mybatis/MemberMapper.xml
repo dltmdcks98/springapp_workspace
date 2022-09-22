@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+
+<!--데이터 삽입  -->
+<insert id="insert" parameterType="Member">
+	insert into member(member_id,customer_id,customer_name,customer_pass,customer_email)
+	values(seq_member.nextval,#{customer_id},#{customer_name},#{customer_pass},#{customer_email})
+</insert>
+
+
+
+
+</mapper>
