@@ -34,11 +34,9 @@
 	<!-- Page specific script -->
 	<!-- Summernote -->
 	<script src="/static/admin/plugins/summernote/summernote-bs4.min.js"></script>
-
 	<script>
 	function getExt(path){
 		index = path.lastIndexOf(".");
 		return path.substring(index+1,path.length);
-		
 	}
 	</script>

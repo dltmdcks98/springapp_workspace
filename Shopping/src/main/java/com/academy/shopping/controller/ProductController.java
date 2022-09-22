@@ -59,6 +59,7 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView("redirect:/admin/product/list");
 		return mav;
 	}
+	
 	//관리자 엑셀 등록
 	@PostMapping("/admin/product/excel")
 	public ModelAndView registByExcel(HttpServletRequest request, MultipartFile excel) {
@@ -68,6 +69,7 @@ public class ProductController {
 		File savedFile=fileManager.saveExcel(path,excel);
 		
 		//2.업로드된 엑셀 해석
+		productService.registByExcel(savedFile);
 		
 		return null;
 	}

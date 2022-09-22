@@ -1,9 +1,12 @@
 package com.academy.shopping.model.product;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -75,8 +78,20 @@ public class ProductServiceImpl implements ProductService{
 	public void registByExcel(File file) {
 		
 		//엑셀을 간접적으로 해석하여 insert DAO 에게 시킬것
-		//2003년 이후 버전에서의 전담객체 XSSF
+		//2003년 이후 버전에서의 전담객체 XSSF~~~
 
+		//1)에섹파일 접근 해제
+		try {
+			
+			XSSFWorkbook workbook = new XSSFWorkbook(file);
+			System.out.println("엑셀 접근 성공");
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	@Override

@@ -265,7 +265,7 @@
 		$("input[name='excel']").change(function(){
 			//선택한 파일 구하기
 			var ext = getExt($(this).val());
-			if(ext!="xls"&& ext!="xlsx"){
+			if(ext!="xls" && ext!="xlsx"){
 				alert("엑셀만 선택하세요");	
 			}
 		});
