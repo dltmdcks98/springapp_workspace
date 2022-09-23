@@ -26,7 +26,7 @@ public class AdminController {
 	
 	//관리자 메인페이지 요청
 	@GetMapping("/admin/main")
-	public ModelAndView getMain() {
+	public ModelAndView getMain(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("admin/index");
 		return mav;
 	}

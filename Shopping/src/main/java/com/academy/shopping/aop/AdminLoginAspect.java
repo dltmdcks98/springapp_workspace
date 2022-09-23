@@ -29,7 +29,21 @@ public class AdminLoginAspect {
 		HttpSession session=null;
 		String uri = request.getRequestURI();
 		//로그인이 필요한 서비스와 필요하지 않은 서비스로 조건을 크게 나눈다.
-		if(uri.equals("/admin/loginform")) {//로그인을 할 경우
+		if(//로그인을 할 경우
+				uri.equals("/admin/loginform"))
+				/*로그인 제외 대상 명단
+				 * uri.equals("/admin/loginform"))||
+				 * uri.equals("/admin/loginform"))||
+				 * uri.equals("/admin/loginform"))||
+				 * uri.equals("/admin/loginform"))||
+				 * uri.equals("/admin/loginform"))||
+				 * uri.equals("/admin/loginform"))||
+				 * uri.equals("/admin/loginform"))
+				 */
+		
+		
+		
+		{
 			returnObj=joinPoint.proceed();
 		}else {//로그인이 필요한 경우
 			if(request!=null) {
