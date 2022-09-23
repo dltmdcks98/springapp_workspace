@@ -18,9 +18,9 @@ public class ShopPaymentController {
 	//장바구니 목록 요청
 	@GetMapping("/shop/cart/list")
 	public ModelAndView getCartList() {
-		List topCategoryList = topCategoryService.selectAll();
 		
 		ModelAndView mav = new ModelAndView("shop/payment/cart");
+		List topCategoryList = topCategoryService.selectAll();
 		mav.addObject("topCategoryList",topCategoryList);
 		
 		return mav;

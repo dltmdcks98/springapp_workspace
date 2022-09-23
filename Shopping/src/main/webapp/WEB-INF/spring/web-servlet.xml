@@ -5,10 +5,12 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 <!--정적자원에 대한 하위 컨트롤러 없이 Spring 자체적으로 해결, resources자원 접근하도록 하는 거 
@@ -31,4 +33,19 @@
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="1048576"></property>
 	</bean>
+	
+	<!-- 계획 : 쇼핑몰 내의 모든 컨트롤러의 메서드 호출시 우리가 정의한 Aspect클래스를 동작시킨다. -->
+	<!-- 공통로직 등록 -->
+	<bean id="topCategoryAspect" class="com.academy.shopping.aop.TopCategoryAspect" />
+	<!-- aop설정 -->
+	<aop:config>
+		<aop:aspect ref="topCategoryAspect">
+			<!--어디 지점에서?  execution(public : 시작하는 단어, *: 반환값 모든것 com.academy.shopping.controller: 패키지 + ..= 모든 클래스 *():모든 메서드 )-->	
+			<aop:pointcut expression="execution(public * com.academy.shopping.controller..*(..))" id="topCategoryPointcut"/>		
+			
+			<!--어느 시점에? method="실행할 메소드"  pointcut-ref: 연계할 지점-->			
+			<aop:around method="getCategoryList" pointcut-ref="topCategoryPointcut"/>
+			
+		</aop:aspect>
+	</aop:config>
 </beans>
