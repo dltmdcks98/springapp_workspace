@@ -33,7 +33,7 @@
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="1048576"></property>
 	</bean>
-	
+  
 	<!-- 계획 : 쇼핑몰 내의 모든 컨트롤러의 메서드 호출시 우리가 정의한 Aspect클래스를 동작시킨다. -->
 	<!-- 공통로직 등록 -->
 	<bean id="topCategoryAspect" class="com.academy.shopping.aop.TopCategoryAspect" />
@@ -43,9 +43,11 @@
 			<!--어디 지점에서?  execution(public : 시작하는 단어, *: 반환값 모든것 com.academy.shopping.controller: 패키지 + ..= 모든 클래스 *():모든 메서드 )-->	
 			<aop:pointcut expression="execution(public * com.academy.shopping.controller..*(..))" id="topCategoryPointcut"/>		
 			
-			<!--어느 시점에? method="실행할 메소드"  pointcut-ref: 연계할 지점-->			
+			<!--어느 시점에? method="실행할 메소드"  pointcut-ref: 연계할 지점
+			around는 실행할 지점에서의 메소드가 동작하기 전에 TopcategoryAspect가 먼저 시작된다.-->			
 			<aop:around method="getCategoryList" pointcut-ref="topCategoryPointcut"/>
 			
 		</aop:aspect>
 	</aop:config>
+
 </beans>

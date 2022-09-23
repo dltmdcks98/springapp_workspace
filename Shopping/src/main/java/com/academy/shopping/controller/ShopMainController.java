@@ -19,14 +19,13 @@ public class ShopMainController {
 	
 	@GetMapping("/shop")
 	public ModelAndView getMain() {
-		//카테고리 가져오기 
-		List topCategoryList =topCategoryService.selectAll();
-		
 		//신상품 및 각종 기획 상품등 진열 
-		
 		ModelAndView mav = new ModelAndView("shop/index");
-		//카테고리 가져오기
-		mav.addObject("topCategoryList",topCategoryList);
+		/* 아래 코드는 aop에서 동작
+		 * //카테고리 가져오기 
+		 * List topCategoryList =topCategoryService.selectAll();
+		 * mav.addObject("topCategoryList",topCategoryList);
+		 */		
 		return mav;
 	}
 	
