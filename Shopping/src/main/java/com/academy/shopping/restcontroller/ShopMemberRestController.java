@@ -49,6 +49,15 @@ public class ShopMemberRestController {
 		return entity;
 	}
 	
+	//로그인 요청  처리
+	@PostMapping("/member/login")
+	public ResponseEntity<Message> login(Member member){
+		Member result = memberService.selectByIdAndPass(member);
+		
+		Message message = new Message(1,"로그인 성공");
+		ResponseEntity<Message> entity = new ResponseEntity<Message>(message,HttpStatus.OK);
+		return entity;
+	}
 	
 	//사용자가 생성한 Exception이라 HttpStatus.ok를 사용하면 성공으로 간주 
 	@ExceptionHandler(MemberException.class)
