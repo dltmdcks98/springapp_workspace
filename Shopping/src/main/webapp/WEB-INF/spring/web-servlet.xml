@@ -36,28 +36,42 @@
   
 	<!-- 계획 : 쇼핑몰 내의 모든 컨트롤러의 메서드 호출시 우리가 정의한 Aspect클래스를 동작시킨다. -->
 	<!-- 공통로직 등록 -->
-	<bean id="topCategoryAspect" class="com.academy.shopping.aop.TopCategoryAspect" />
+	<!-- <bean id="topCategoryAspect" class="com.academy.shopping.aop.TopCategoryAspect" /> -->
 	<bean id="adminLoginAspect" class="com.academy.shopping.aop.AdminLoginAspect" />
+	<bean id="memberLoginAspect" class="com.academy.shopping.aop.MemberLoginAspect" />
+	
 	<bean id="globalExceptionAspect" class="com.academy.shopping.aop.GlobalExceptionAspect" />
 	
 	<!-- aop설정 -->
-	<aop:config>
+	<!-- Topbar -->
+	<!-- <aop:config>
 		<aop:aspect ref="topCategoryAspect">
-			<!--어디 지점에서?  execution(public : 시작하는 단어, *: 반환값 모든것 com.academy.shopping.controller: 패키지 + ..= 모든 클래스 *():모든 메서드 )-->	
+			어디 지점에서?  execution(public : 시작하는 단어, *: 반환값 모든것 com.academy.shopping.controller: 패키지 + ..= 모든 클래스 *():모든 메서드 )	
 			<aop:pointcut expression="execution(public * com.academy.shopping.controller.shop..*(..))" id="topCategoryPointcut"/>		
 			
-			<!--어느 시점에? method="실행할 메소드"  pointcut-ref: 연계할 지점
-			around는 실행할 지점에서의 메소드가 동작하기 전에 TopcategoryAspect가 먼저 시작된다.-->			
+			어느 시점에? method="실행할 메소드"  pointcut-ref: 연계할 지점
+			around는 실행할 지점에서의 메소드가 동작하기 전에 TopcategoryAspect가 먼저 시작된다.			
 			<aop:around method="getCategoryList" pointcut-ref="topCategoryPointcut"/>
 			
 		</aop:aspect>
+	</aop:config> -->
+	
+	<!-- 관리자 로그인 -->
+	<aop:config>
+		<aop:aspect ref="adminLoginAspect">
+			<aop:pointcut expression="execution(public * com.academy.shopping.controller.admin..*(..))" id="adminLoginPointcut"/>
+			<aop:around method="loginCheck" pointcut-ref="adminLoginPointcut"/>
+		</aop:aspect>
 	</aop:config>
+	<!--사용자  -->
+	<aop:config>
+		<aop:aspect ref="memberLoginAspect">
+			<aop:pointcut expression="execution(public * com.academy.shopping.controller.shop..*(..))" id="memberLoginPointcut"/>
+			<aop:around method="loginCheck" pointcut-ref="memberLoginPointcut"/>
+		</aop:aspect>
+	</aop:config>
+	
+	
 
-<aop:config>
-	<aop:aspect ref="adminLoginAspect">
-		<aop:pointcut expression="execution(public * com.academy.shopping.controller.admin..*(..))" id="adminLoginPointcut"/>
-		<aop:around method="loginCheck" pointcut-ref="adminLoginPointcut"/>
-	</aop:aspect>
-</aop:config>
 
 </beans>

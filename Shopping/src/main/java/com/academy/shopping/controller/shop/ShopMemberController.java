@@ -19,7 +19,7 @@ public class ShopMemberController {
 	private TopCategoryService topCategoryService;
 	
 	@GetMapping("/shop/member/registform")
-	public ModelAndView getRegistForm() {
+	public ModelAndView getRegistForm(HttpServletRequest request) {
 		List topCategoryList = topCategoryService.selectAll();
 		
 		ModelAndView mav = new ModelAndView("shop/member/join");
@@ -28,7 +28,7 @@ public class ShopMemberController {
 		return mav;
 	}
 	@GetMapping("/shop/member/loginform")
-	public ModelAndView getLoginForm() {
+	public ModelAndView getLoginForm(HttpServletRequest request) {
 		List topCategoryList = topCategoryService.selectAll();
 
 		ModelAndView mav = new ModelAndView("shop/member/login");

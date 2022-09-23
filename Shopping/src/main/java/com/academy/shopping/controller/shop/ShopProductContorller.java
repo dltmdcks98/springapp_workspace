@@ -2,6 +2,8 @@ package com.academy.shopping.controller.shop;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +26,7 @@ public class ShopProductContorller {
 	//상품 목록 페이지 요청 
 //	@RequestParam(defaultValue="0") : 파라미터값이 아무것도 넘어오지 않았을때 기본값을 설정
 	@GetMapping("/shop/product")
-	public ModelAndView getProductMain(@RequestParam(defaultValue="0") int topcategory_id,@RequestParam(defaultValue="0") int subcategory_id) {
+	public ModelAndView getProductMain(@RequestParam(defaultValue="0") int topcategory_id,@RequestParam(defaultValue="0") int subcategory_id, HttpServletRequest request) {
 		//카테고리 가져오기
 		List topCategoryList =topCategoryService.selectAll();
 		

@@ -2,6 +2,8 @@ package com.academy.shopping.controller.shop;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,7 @@ public class ShopMainController {
 	
 	
 	@GetMapping("/shop")
-	public ModelAndView getMain() {
+	public ModelAndView getMain(HttpServletRequest request) {
 		//신상품 및 각종 기획 상품등 진열 
 		ModelAndView mav = new ModelAndView("shop/index");
 		/* 아래 코드는 aop에서 동작
