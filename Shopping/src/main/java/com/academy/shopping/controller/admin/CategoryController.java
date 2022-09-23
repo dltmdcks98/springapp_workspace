@@ -14,7 +14,7 @@ public class CategoryController {
 	
 	//관리자-카테고리 관리 main요청
 	@GetMapping("/admin/category/list")
-	public ModelAndView categoryMain(HttpServletRequest request, Model model) {
+	public ModelAndView categoryMain(HttpServletRequest request) {
 		//로그인 인증을 거치지 않았다면, 거부
 		HttpSession session = request.getSession();
 		
