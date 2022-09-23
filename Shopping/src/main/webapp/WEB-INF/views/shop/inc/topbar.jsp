@@ -18,7 +18,7 @@
             <li><a href="#"><span class="icon_heart_alt"></span>
                 <div class="tip">2</div>
             </a></li>
-            <li><a href="#"><span class="icon_bag_alt"></span>
+            <li><a href="/shop/cart/list"><span class="icon_bag_alt"></span>
                 <div class="tip">2</div>
             </a></li>
         </ul>
@@ -76,7 +76,7 @@
                             <a href="/shop/member/loginform">Login</a>
                             <a href="/shop/member/registform">Register</a>
                             <%}else{ //로그인한 경우%>
-                            <a href="/shop/member/logout">Logout</a>
+                            <a href="javascript:logout()">Logout</a>
                             <%} %>
                         </div>
                         <ul class="header__right__widget">
@@ -84,7 +84,7 @@
                             <li><a href="#"><span class="icon_heart_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
+                            <li><a href="/shop/cart/list"><span class="icon_bag_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
                         </ul>
@@ -97,3 +97,10 @@
         </div>
     </header>
     <!-- Header Section End -->
+    <script>
+    	function logout(){
+    		if(confirm("로그아웃 하실래요?")){
+    			location.href="/shop/member/logout";
+    		}
+    	}
+    </script>
