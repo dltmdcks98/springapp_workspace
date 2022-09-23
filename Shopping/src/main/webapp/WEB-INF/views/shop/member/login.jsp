@@ -96,7 +96,10 @@ function login(){
 			customer_pass:$("#customer_pass").val()
 		},
 		success:function(result,status,xhr){
-			alert(result.msg);
+			if(result.code==1){//성공하면 페이지를 새로고침하여 login->logout전환
+				location.href="/shop";
+			}
+			
 		}
 		
 	});	

@@ -72,8 +72,12 @@
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
+                        	<%if(session.getAttribute("member")==null){ //로그인 안한 경우%>
                             <a href="/shop/member/loginform">Login</a>
                             <a href="/shop/member/registform">Register</a>
+                            <%}else{ //로그인한 경우%>
+                            <a href="/shop/member/logout">Logout</a>
+                            <%} %>
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
