@@ -1,7 +1,7 @@
 <%@page import="com.academy.shopping.model.domain.Product"%>
 <%@page import="java.util.List"%>
 <%@page
-	import="com.academy.shopping.restcontroller.TopCategoryRestController"%>
+	import="com.academy.shopping.restcontroller.admin.TopCategoryRestController"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
 	List<Product> productList = (List) request.getAttribute("productList");

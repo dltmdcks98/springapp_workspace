@@ -51,7 +51,7 @@ public class ShopProductContorller {
 	
 	//상품 상세요청 처리
 	@GetMapping("/shop/product/view")
-	public ModelAndView getDetail(int product_id) {
+	public ModelAndView getDetail(int product_id,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("shop/detail");
 		
 		List topCategoryList = topCategoryService.selectAll();

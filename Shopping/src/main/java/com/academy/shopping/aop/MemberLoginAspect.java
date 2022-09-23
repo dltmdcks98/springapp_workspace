@@ -40,7 +40,8 @@ public class MemberLoginAspect {
 			uri.equals("/shop")||
 			uri.equals("/shop/member/registform")||
 			uri.equals("/shop/member/loginform")||
-			uri.equals("/shop/product")
+			uri.equals("/shop/product")||
+			uri.equals("/shop/product/view")
 		) {
 			 //원래 호출하려던 메소드 호출
 			 returnObj=joinPoint.proceed();
