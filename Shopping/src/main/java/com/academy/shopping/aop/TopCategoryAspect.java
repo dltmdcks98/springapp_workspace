@@ -27,6 +27,8 @@ public class TopCategoryAspect {
 		Object target = joinPoint.getTarget();//원래 호출하려던 객체
 		System.out.println("원래 호출하겨던 객체 : "+target.getClass().getName());
 		
+		System.out.println("호출하려던 메서드 :"+joinPoint.getSignature());;//원래 호출하려던 메서드
+		
 		Object returnObj=null;
 		try {
 			returnObj = joinPoint.proceed(); //원래 호출하려던 메서드 대신 호출(원래 메서드 역할)
@@ -36,11 +38,13 @@ public class TopCategoryAspect {
 		}
 		
 		//원래의 요청 대센에Aspect가(프록시=대리)가 컨트롤러의 메서드를 대신 호출하고, 반환된 ModelAndView에 정보를 심어본다.
-		ModelAndView mav = (ModelAndView)returnObj;
-		List topCategoryList = topCategoryService.selectAll();
-		mav.addObject("topCategoryList",topCategoryList);
-		
-		return mav;//DispatcherServlet에게 반환되면 이때 DispatcherServletdms ViewResolver에게 jsp페이지를 얻기 위한 해셕을 맡기
+		if(returnObj instanceof ModelAndView) {//자료형을 비교하는 연산자
+			ModelAndView mav = (ModelAndView)returnObj;
+			List topCategoryList = topCategoryService.selectAll();
+			mav.addObject("topCategoryList",topCategoryList);
+			returnObj=mav;
+		}
+		return returnObj;//DispatcherServlet에게 반환되면 이때 DispatcherServlet은 ViewResolver에게 jsp페이지를 얻기 위한 해셕을 맡기
 	}
 	
 }

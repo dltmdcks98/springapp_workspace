@@ -1,4 +1,4 @@
-package com.academy.shopping.controller;
+package com.academy.shopping.controller.shop;
 
 import java.util.List;
 
