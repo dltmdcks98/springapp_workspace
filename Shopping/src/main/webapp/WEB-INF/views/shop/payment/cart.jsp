@@ -54,6 +54,7 @@
                             </thead>
                             <tbody>
                             <form id="cart-form">
+                            <%int total=0; %>
 	                            <%for(int i=0; i<cartList.size();i++){ %>
 	                            <%Cart cart= (Cart)cartList.get(i); %>
 	                                <tr>
@@ -80,6 +81,7 @@
 	                                    <td class="cart__total"><%=CurrencyFormatter.getCurrency(cart.getDiscount()*cart.getQuantity()) %>원</td>
 	                                    <td class="cart__close"><span class="icon_close" onClick="delCart(<%=cart.getProduct_id()%>)"></span></td>
 	                                </tr>
+	                                    <% total +=cart.getDiscount()*cart.getQuantity();  %>
 	                                <%} %>
                                 </form>
                             </tbody>
@@ -113,10 +115,10 @@
                     <div class="cart__total__procced">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Subtotal <span>$ 750.0</span></li>
-                            <li>Total <span>$ 750.0</span></li>
+                            <li>구매 금액 <span><%=CurrencyFormatter.getCurrency(total) %>원</span></li>
+                            <li>최종 결제금액 <span><%=CurrencyFormatter.getCurrency(total) %>원</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Proceed to checkout</a>
+                        <a href="javascript:goCheckout()" class="primary-btn">Proceed to checkout</a>
                     </div>
                 </div>
             </div>
@@ -147,6 +149,11 @@ function updateCart(){
 		});
 		$("#cart-form").submit();
 	}	
+}
+function goCheckout(){
+	if(confirm("결제를 진행하시겠어요?")){
+		location.href="/shop/checkout";	
+	}
 }
 
 $(function(){
