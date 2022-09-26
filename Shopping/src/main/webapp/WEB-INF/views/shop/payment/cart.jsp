@@ -1,3 +1,4 @@
+<%@page import="com.academy.shopping.model.util.CurrencyFormatter"%>
 <%@page import="com.academy.shopping.model.domain.Cart"%>
 <%@page import="com.academy.shopping.model.domain.Product"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
@@ -52,32 +53,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <%for(int i=0; i<cartList.size();i++){ %>
-                            <%Cart cart= (Cart)cartList.get(i); %>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="/static/data/<%=cart.getProduct_img() %>" alt="" width="65px">
-                                        <div class="cart__product__item__title">
-                                            <h6><%=cart.getProduct_name() %></h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price"><%=cart.getDiscount() %></td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1" name="quantity">
-                                        </div>
-                                    </td>
-                                    <td class="cart__total"><%=cart.getDiscount()*cart.getQuantity() %></td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
-                                <%} %>
+                            <form id="cart-form">
+	                            <%for(int i=0; i<cartList.size();i++){ %>
+	                            <%Cart cart= (Cart)cartList.get(i); %>
+	                                <tr>
+	                            <input type="hidden" name="product_id" value="<%=cart.getProduct_id()%>">
+	                                    <td class="cart__product__item">
+	                                        <img src="/static/data/<%=cart.getProduct_img() %>" alt="" width="65px">
+	                                        <div class="cart__product__item__title">
+	                                            <h6><%=cart.getProduct_name() %></h6>
+	                                            <div class="rating">
+	                                                <i class="fa fa-star"></i>
+	                                                <i class="fa fa-star"></i>
+	                                                <i class="fa fa-star"></i>
+	                                                <i class="fa fa-star"></i>
+	                                                <i class="fa fa-star"></i>
+	                                            </div>
+	                                        </div>
+	                                    </td>
+	                                    <td class="cart__price"><%=CurrencyFormatter.getCurrency(cart.getDiscount())%>원</td>
+	                                    <td class="cart__quantity">
+	                                        <div class="pro-qty">
+	                                            <input type="text" value="<%=cart.getQuantity()%>" name="quantity">
+	                                        </div>
+	                                    </td>
+	                                    <td class="cart__total"><%=CurrencyFormatter.getCurrency(cart.getDiscount()*cart.getQuantity()) %>원</td>
+	                                    <td class="cart__close"><span class="icon_close" onClick="delCart(<%=cart.getProduct_id()%>)"></span></td>
+	                                </tr>
+	                                <%} %>
+                                </form>
                             </tbody>
                         </table>
                     </div>
@@ -91,7 +95,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="cart__btn update__btn">
-                        <a href="/shop/cart/quantity?"><span class="icon_loading"></span> Update cart</a>
+                        <a href="javascript:updateCart()"><span class="icon_loading"></span> Update cart</a>
                     </div>
                 </div>
             </div>
@@ -130,33 +134,22 @@
 <!-- Js Plugins -->
 <%@ include file="../inc/plugin.jsp" %>
 <script type="text/javascript">
-
-function login(){
-	$.ajax({
-		url:"/rest/member/login",
-		type:"post",
-		data:{
-			customer_id:$("#customer_id").val(),
-			customer_pass:$("#customer_pass").val()
-		},
-		success:function(result,status,xhr){
-			if(result.code==1){//성공하면 페이지를 새로고침하여 login->logout전환
-				location.href="/shop";
-			}
-			
-		}
-		
-	});	
+function delCart(product_id){
+	if(confirm("삭제하시겠어요?")){
+		location.href="/shop/cart/delete?product_id="+product_id;
+	}
 }
-$(function(){
+function updateCart(){
+	if(confirm("장바구니를 수정하시겠어요?")){
+		$("#cart-form").attr({
+			method:"post",
+			action:"/shop/cart/update"
+		});
+		$("#cart-form").submit();
+	}	
+}
 
-	$($("form button")[0]).click(function(){//로그인
-		login();
-	});
-	
-	$($("form button")[1]).click(function(){//가입
-		location.href="/shop/member/registform";
-	});
+$(function(){
 	
 });
 </script>

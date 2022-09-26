@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.academy.shopping.model.category.TopCategoryService;
@@ -52,11 +54,35 @@ public class ShopPaymentController {
 		
 	}
 	
-	@GetMapping("/shop/cart/quantity")
-	public ModelAndView getQantity(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
+	@PostMapping("/shop/cart/update")
+	public ModelAndView update(HttpServletRequest request) {
+		String[] product_id = request.getParameterValues("product_id");
+		String[] quantity = request.getParameterValues("quantity");
+		
 		HttpSession session = request.getSession();
 		
+		
+		for(int i=0; i<product_id.length;i++) {
+			System.out.println("수정할 장바구니의 제품은 " +product_id[i]+"이고, 그 수량은 각각" +quantity[i]);
+			
+			//세션에 들어있는 Cart객체를 찾아내어, 사용자가 수정한 수량을 반영
+			Cart cart = (Cart)session.getAttribute(product_id[i]);//변경대상 Cart
+			cart.setQuantity(Integer.parseInt(quantity[i]));//수량변경 
+			
+		}
+		ModelAndView mav = new ModelAndView("redirect:/shop/cart/list");
+		
 		return mav;
+	}
+	
+	//세션에서 상품 1개 제거
+	@GetMapping("/shop/cart/delete")
+	public ModelAndView delete(HttpServletRequest request, int product_id) {
+		HttpSession session = request.getSession();
+		session.removeAttribute(Integer.toString(product_id));//key값을 이용하여 Map에서 제거
+		
+		
+		
+		return new ModelAndView("redirect:/shop/cart/list");
 	}
 }
