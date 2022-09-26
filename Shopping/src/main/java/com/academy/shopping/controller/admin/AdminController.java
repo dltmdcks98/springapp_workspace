@@ -19,7 +19,7 @@ public class AdminController {
 
 	//관리자 등록 폼 요청 처리
 	@GetMapping("/admin/registform") 
-	public ModelAndView getRegistForm() {
+	public ModelAndView getRegistForm(HttpServletRequest request) {
 		//jsp의 이름 이 밑에 들어가야함 
 		return new ModelAndView("admin/regist");
 	}

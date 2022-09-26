@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.academy.shopping.exception.MemberException;
@@ -35,11 +36,14 @@ public class MemberLoginAspect {
 		 HttpSession session=null;
 		 
 		 ModelAndView mav = null;
+		 
+		 
 		 if(
 			//로그인 하지 않고 접근 가능한 URI 명단
 			uri.equals("/shop")||
 			uri.equals("/shop/member/registform")||
 			uri.equals("/shop/member/loginform")||
+			uri.equals("/shop/member/login")||
 			uri.equals("/shop/product")||
 			uri.equals("/shop/product/view")
 		) {

@@ -322,7 +322,8 @@ function addCart(){
 			subcategory_id:<%=product.getSubcategory().getSubcategory_id()%>
 		},
 		success:function(result,status,xhr){
-			
+			alert(result.msg);
+			console.log(result);
 		}
 		
 	});

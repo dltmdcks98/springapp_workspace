@@ -63,6 +63,7 @@
 			<aop:around method="loginCheck" pointcut-ref="adminLoginPointcut"/>
 		</aop:aspect>
 	</aop:config>
+	
 	<!--사용자  -->
 	<aop:config>
 		<aop:aspect ref="memberLoginAspect">

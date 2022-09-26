@@ -30,7 +30,8 @@ public class AdminLoginAspect {
 		String uri = request.getRequestURI();
 		//로그인이 필요한 서비스와 필요하지 않은 서비스로 조건을 크게 나눈다.
 		if(//로그인을 할 경우
-				uri.equals("/admin/loginform"))
+				uri.equals("/admin/loginform")||
+				uri.equals("/admin/registform")
 				/*로그인 제외 대상 명단
 				 * uri.equals("/admin/loginform"))||
 				 * uri.equals("/admin/loginform"))||
@@ -40,8 +41,7 @@ public class AdminLoginAspect {
 				 * uri.equals("/admin/loginform"))||
 				 * uri.equals("/admin/loginform"))
 				 */
-		
-		
+		)
 		
 		{
 			returnObj=joinPoint.proceed();
