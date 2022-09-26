@@ -47,7 +47,7 @@
 	                   here to enter your code.</h6>
 	               </div>
 	           </div>
-	           <form action="#" class="checkout__form">
+	           <form id="pay-form">
 	               <div class="row">
 	                   <div class="col-lg-8">
 	                       <h5>구매자</h5>
@@ -78,7 +78,7 @@
 	                               <div class="checkout__order__product">
 	                                   <ul>
 	                                       <li>
-	                                           <span class="top__text">Product</span>
+	                                           <span class="top__text">구매 상품</span>
 	                                           <span class="top__text__right">Total</span>
 	                                       </li>
 	                                       <%int total =0; %>
@@ -97,24 +97,23 @@
 	                               </div>
 	                               <div class="checkout__order__widget">
 	                                   <label for="o-acc">
-	                                       Create an acount?
+	                                      카드결제
 	                                       <input type="checkbox" id="o-acc">
 	                                       <span class="checkmark"></span>
 	                                   </label>
-	                                   <p>Create am acount by entering the information below. If you are a returing customer
-	                                   login at the top of the page.</p>
+	                                  
 	                                   <label for="check-payment">
-	                                       Cheque payment
+	                                      온라인 입금
 	                                       <input type="checkbox" id="check-payment">
 	                                       <span class="checkmark"></span>
 	                                   </label>
 	                                   <label for="paypal">
-	                                       PayPal
+	                                       가상계좌
 	                                       <input type="checkbox" id="paypal">
 	                                       <span class="checkmark"></span>
 	                                   </label>
 	                               </div>
-	                               <button type="submit" class="site-btn">Place oder</button>
+	                               <button type="button" class="site-btn" onClick="pay()">Place oder</button>
 	                           </div>
 	                       </div>
 	                   </div>
@@ -132,11 +131,17 @@
 <!-- Js Plugins -->
 <%@ include file="../inc/plugin.jsp" %>
 <script type="text/javascript">
+function pay(){
+	if(confirm("입력하신 정보로 결제를 진행할까요?")){
+		//위의 정보 말고 포인트, 쿠폰, 배송정보 등 다양한 정보가 있으므로  post로 진행
+		$("#pay-form").attr({
+			action:"/shop/pay",
+			method:"post",
+		});
+		$("#pay-form").submit();
+	}
+}
 
-
-$(function(){
-	
-});
 </script>
 </body>
 

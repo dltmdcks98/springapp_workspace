@@ -110,4 +110,18 @@ public class ShopPaymentController {
 		mav.addObject("cartList",cartList);
 		return mav;
 	}
+	
+	//결제 확정 요청 처리 
+	@PostMapping("/shop/pay")
+	public ModelAndView pay(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		//구매자 정보
+		
+		//배송 정보
+		
+		//결제 정보 
+		
+		return null;
+	}
 }
