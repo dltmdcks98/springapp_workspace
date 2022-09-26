@@ -29,7 +29,7 @@ public class ShopMemberRestController {
 	private HashManager hashManager;
 	
 	@PostMapping("/member")
-	public ResponseEntity<Message> regist(Member member) {
+	public ResponseEntity<Message> regist(HttpServletRequest request,Member member) {
 		System.out.println(member.getCustomer_id());
 		System.out.println(member.getCustomer_name());
 		System.out.println(member.getCustomer_pass());
@@ -44,7 +44,7 @@ public class ShopMemberRestController {
 	}
 
 	@GetMapping("/member/{customer_id}")
-	public ResponseEntity<Message> getId(@PathVariable("customer_id") String customer_id){
+	public ResponseEntity<Message> getId(@PathVariable("customer_id") String customer_id, HttpServletRequest request){
 		System.out.println("검증할 아이디" + customer_id);
 		memberService.selectCustomerId(customer_id);
 		Message message = new Message(1,customer_id+"는 가입 가능 합니다.");
@@ -54,7 +54,7 @@ public class ShopMemberRestController {
 	
 	//로그인 요청  처리
 	@PostMapping("/member/login")
-	public ResponseEntity<Message> login(HttpServletRequest request,Member member){
+	public ResponseEntity<Message> login(HttpServletRequest request, Member member){
 		Member result = memberService.selectByIdAndPass(member);
 
 		//로그인에 성공하면 회원 정보를 유지할수 있도록 세션에 Member객체를 담는다.
@@ -66,14 +66,4 @@ public class ShopMemberRestController {
 		return entity;
 	}
 	
-	//사용자가 생성한 Exception이라 HttpStatus.ok를 사용하면 성공으로 간주 
-	@ExceptionHandler(MemberException.class)
-	public ResponseEntity<Message> handleException(MemberException e){
-		
-		Message message = new Message(0,e.getMessage());
-		
-		ResponseEntity<Message> entity = new ResponseEntity<Message>(message,HttpStatus.OK);
-		
-		return entity;
-	}
 }

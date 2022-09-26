@@ -29,19 +29,32 @@ public class RestMemberLoginAspect {
 			}
 		}
 		
-		//회원 로그인 여부 판단
-		session = request.getSession();
-		if(session.getAttribute("member")==null) {
-			throw new MemberException("회원 로그인이 필요한 서비스입니다.(rest)");
-		}else {
-			ResponseEntity entity=null;
+		//제외될 명단을 작성하기 위한 uri조사
+		String uri = request.getRequestURI();
+		ResponseEntity entity=null;
+		
+		String user_id= uri.substring(uri.lastIndexOf("/")+1,uri.length());
+		
+		if(uri.equals("/rest/member/login")||
+			uri.equals("/rest/member/"+user_id)) {
+			returnObj = joinPoint.proceed();
 			if(returnObj instanceof ResponseEntity) {
-				entity=(ResponseEntity)returnObj;
-				System.out.println("entity 반환" + entity);
+				entity=(ResponseEntity) returnObj;
+			}
+		}else {
+			//회원 로그인 여부 판단
+			session = request.getSession();
+			if(session.getAttribute("member")==null) {
+				throw new MemberException("회원 로그인이 필요한 서비스입니다.(rest)");
+			}else {
+				returnObj = joinPoint.proceed();//원래 호출하려던 메소드 호출
+				if(returnObj instanceof ResponseEntity) {
+					entity=(ResponseEntity)returnObj;
+					System.out.println("entity 반환" + entity);
+				}
 			}
 		}
 
-		returnObj = joinPoint.proceed();//원래 호출하려던 메소드 호출
 		
 		
 		return returnObj;

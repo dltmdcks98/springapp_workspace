@@ -28,7 +28,7 @@
 	</bean>
 	
 	<!-- 예외 처리 -->
-	<bean id="restGlobalExceptionAspect" class="com.academy.shopping.aop.RestGlobalExceptionAspect"></bean>
+	<bean id="restGlobalExceptionAspect" class="com.academy.shopping.aop.RestGlobalExceptionAspect"/>
 	<!--사용자  -->
 	<bean id="restMemberLoginAspect" class="com.academy.shopping.aop.RestMemberLoginAspect" />
 	
