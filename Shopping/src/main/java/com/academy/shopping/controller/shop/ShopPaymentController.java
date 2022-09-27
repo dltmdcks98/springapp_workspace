@@ -21,6 +21,7 @@ import com.academy.shopping.model.domain.OrderSummary;
 import com.academy.shopping.model.domain.Paymethod;
 import com.academy.shopping.model.order.OrderSummaryService;
 import com.academy.shopping.model.order.PaymethodService;
+import com.academy.shopping.model.util.MailFormReader;
 
 @Controller
 public class ShopPaymentController {
@@ -34,6 +35,8 @@ public class ShopPaymentController {
 	@Autowired
 	private OrderSummaryService orderSummaryService;
 	
+	@Autowired
+	private MailFormReader mailFormReader;
 	
 	//장바구니 목록 요청
 	@GetMapping("/shop/cart/list")
@@ -154,8 +157,13 @@ public class ShopPaymentController {
 			
 		}
 		orderSummary.setOrderDetailList(orderDetailList);
+		
+		mailFormReader.setPath(request.getServletContext().getRealPath("/resources/email/mailform.html"));
+		System.out.println("컨트롤러에서의 mailform"+mailFormReader.getPath());
 		//OrderSummary가 모두 채워졌다면 주문입력 처리
 		orderSummaryService.order(orderSummary);
+		
+		//메일발송
 		
 		
 		//배송 정보 생략
