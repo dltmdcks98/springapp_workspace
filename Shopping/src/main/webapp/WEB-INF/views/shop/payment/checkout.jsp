@@ -1,3 +1,4 @@
+<%@page import="com.academy.shopping.model.domain.Paymethod"%>
 <%@page import="com.academy.shopping.model.domain.Member"%>
 <%@page import="com.academy.shopping.model.util.CurrencyFormatter"%>
 <%@page import="com.academy.shopping.model.domain.Cart"%>
@@ -6,6 +7,7 @@
 <%
 	Member member = (Member)request.getAttribute("member");
 	List<Cart> cartList = (List)request.getAttribute("cartList") ;
+	List<Paymethod> paymethodList = (List)request.getAttribute("paymethodList");
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -96,22 +98,16 @@
 	                                   </ul>
 	                               </div>
 	                               <div class="checkout__order__widget">
-	                                   <label for="o-acc">
-	                                      카드결제
-	                                       <input type="checkbox" id="o-acc">
+	                               	<%for(int i=0; i<paymethodList.size(); i++) {%>
+	                               	<%Paymethod paymethod = paymethodList.get(i);%>
+	                                   <label for="o-acc<%=i%>">
+	                                      <%=paymethod.getPayname() %>
+	                                       <input type="radio" id="o-acc<%=i%>" name="paymethod.paymethod_id" value="<%=paymethod.getPaymethod_id()%>">
 	                                       <span class="checkmark"></span>
 	                                   </label>
-	                                  
-	                                   <label for="check-payment">
-	                                      온라인 입금
-	                                       <input type="checkbox" id="check-payment">
-	                                       <span class="checkmark"></span>
-	                                   </label>
-	                                   <label for="paypal">
-	                                       가상계좌
-	                                       <input type="checkbox" id="paypal">
-	                                       <span class="checkmark"></span>
-	                                   </label>
+	                                  <%} %>
+
+	                                   
 	                               </div>
 	                               <button type="button" class="site-btn" onClick="pay()">Place oder</button>
 	                           </div>

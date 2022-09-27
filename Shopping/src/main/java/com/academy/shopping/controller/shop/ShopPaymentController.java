@@ -17,12 +17,18 @@ import com.academy.shopping.model.category.TopCategoryService;
 import com.academy.shopping.model.domain.Cart;
 import com.academy.shopping.model.domain.Member;
 import com.academy.shopping.model.domain.OrderSummary;
+import com.academy.shopping.model.domain.Paymethod;
+import com.academy.shopping.model.order.PaymethodService;
 
 @Controller
 public class ShopPaymentController {
 	
 	@Autowired
 	private TopCategoryService topCategoryService;
+	
+	@Autowired
+	private PaymethodService paymethodService;
+
 	
 	//장바구니 목록 요청
 	@GetMapping("/shop/cart/list")
@@ -105,9 +111,14 @@ public class ShopPaymentController {
 			}
 			
 		}
+		//결제 방법 목록 가져오기
+		
+		List paymethodList = paymethodService.selectAll();
+		
 		mav.addObject("member",member);
 		mav.addObject("cartList",cartList);
-		return mav;
+		mav.addObject("paymethodList",paymethodList);//결제방법
+		return mav;   
 	}
 	
 	//결제 확정 요청 처리 
@@ -119,9 +130,7 @@ public class ShopPaymentController {
 		Member member = (Member)session.getAttribute("member");
 		orderSummary.setMember(member);//주문정보 객체에 회원정보 넣기
 		
-		
-		
-		
+		System.out.println("주문전 채워진 DTO : "+orderSummary);
 		
 		//배송 정보 생략
 		
