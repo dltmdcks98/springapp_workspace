@@ -36,7 +36,9 @@ public class RestMemberLoginAspect {
 		String user_id= uri.substring(uri.lastIndexOf("/")+1,uri.length());
 		
 		if(uri.equals("/rest/member/login")||
-			uri.equals("/rest/member/"+user_id)) {
+			uri.equals("/rest/member")||
+			uri.equals("/rest/member/check")//비동기 회원 가입
+				){
 			returnObj = joinPoint.proceed();
 			if(returnObj instanceof ResponseEntity) {
 				entity=(ResponseEntity) returnObj;
