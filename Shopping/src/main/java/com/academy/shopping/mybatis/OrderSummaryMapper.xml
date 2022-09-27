@@ -24,7 +24,7 @@
 		<!--insert와 동시에 pk를 추출할 일이 있을때   -->
 		<selectKey order="AFTER" keyColumn="ordersummary_id" resultType="int" keyProperty="ordersummary_id">
 			<!--Mysql : select last_insert_id()  -->
-			select seq_ordersummary.currval  as ordersummary_id from dual
+			select seq_ordersummary.currval as ordersummary_id from dual
 		</selectKey>
 	</insert>	
 	

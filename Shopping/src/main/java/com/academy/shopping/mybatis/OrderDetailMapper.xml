@@ -17,8 +17,8 @@
 	</select>
 	
 	<insert id="insert" parameterType="OrderDetail">
-		insert into orderdetail(orderdetail_id,product_id, ea,ordersummary_id)
-		values(seq_orderdetail.nextval,#{product.product_id},#{ea},#{ordersummary.ordersummary_id})
+		insert into orderdetail(orderdetail_id, product_id, ea, ordersummary_id)
+		values(seq_orderdetail.nextval,#{product.product_id},#{ea},#{ordersummary_id})
 	</insert>
 	
 	<update id="update" parameterType="OrderDetail">

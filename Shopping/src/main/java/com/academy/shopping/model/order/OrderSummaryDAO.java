@@ -5,6 +5,8 @@ import java.util.List;
 import com.academy.shopping.model.domain.Member;
 import com.academy.shopping.model.domain.OrderSummary;
 
+import lombok.Data;
+
 public interface OrderSummaryDAO {
 	public OrderSummary select(int ordersummary_id);
 	public List selectAll();

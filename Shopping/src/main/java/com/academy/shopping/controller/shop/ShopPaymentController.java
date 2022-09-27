@@ -16,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.academy.shopping.model.category.TopCategoryService;
 import com.academy.shopping.model.domain.Cart;
 import com.academy.shopping.model.domain.Member;
+import com.academy.shopping.model.domain.OrderDetail;
 import com.academy.shopping.model.domain.OrderSummary;
 import com.academy.shopping.model.domain.Paymethod;
+import com.academy.shopping.model.order.OrderSummaryService;
 import com.academy.shopping.model.order.PaymethodService;
 
 @Controller
@@ -29,6 +31,9 @@ public class ShopPaymentController {
 	@Autowired
 	private PaymethodService paymethodService;
 
+	@Autowired
+	private OrderSummaryService orderSummaryService;
+	
 	
 	//장바구니 목록 요청
 	@GetMapping("/shop/cart/list")
@@ -124,7 +129,7 @@ public class ShopPaymentController {
 	//결제 확정 요청 처리 
 	@PostMapping("/shop/pay")
 	public ModelAndView pay(HttpServletRequest request,OrderSummary orderSummary) {
-
+		
 		//결제 정보(ordersummary, orderdetail)
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute("member");
@@ -132,9 +137,31 @@ public class ShopPaymentController {
 		
 		System.out.println("주문전 채워진 DTO : "+orderSummary);
 		
+		//Cart 추출
+		Enumeration<String>keyList=session.getAttributeNames();//Session에 들어있는 key
+		List orderDetailList = new ArrayList();//구매한 상품 목록 누적할 List
+		while(keyList.hasMoreElements()) {
+			String key = keyList.nextElement();//Cart의 key인지 Member key인지 구분하기 위함 
+			if(!key.equals("member")) {
+				Cart cart =(Cart)session.getAttribute(key);
+				
+				OrderDetail orderDetail = new OrderDetail();
+				orderDetail.setProduct(cart);//cart는 product의 자식이므로
+				orderDetail.setEa(cart.getQuantity());
+				//orderDetail.setOrdersummary_id(0);
+				orderDetailList.add(orderDetail);
+			}
+			
+		}
+		orderSummary.setOrderDetailList(orderDetailList);
+		//OrderSummary가 모두 채워졌다면 주문입력 처리
+		orderSummaryService.order(orderSummary);
+		
+		
 		//배송 정보 생략
 		
-		
-		return null;
+		ModelAndView mav = new ModelAndView("shop/payment/result");
+		mav.addObject("orderSummary",orderSummary);
+		return mav;
 	}
 }
