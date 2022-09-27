@@ -10,14 +10,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.academy.shopping.model.category.TopCategoryService;
 import com.academy.shopping.model.domain.Cart;
 import com.academy.shopping.model.domain.Member;
-import com.academy.shopping.model.domain.Product;
+import com.academy.shopping.model.domain.OrderSummary;
 
 @Controller
 public class ShopPaymentController {
@@ -113,14 +112,19 @@ public class ShopPaymentController {
 	
 	//결제 확정 요청 처리 
 	@PostMapping("/shop/pay")
-	public ModelAndView pay(HttpServletRequest request) {
+	public ModelAndView pay(HttpServletRequest request,OrderSummary orderSummary) {
+
+		//결제 정보(ordersummary, orderdetail)
 		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute("member");
+		orderSummary.setMember(member);//주문정보 객체에 회원정보 넣기
 		
-		//구매자 정보
 		
-		//배송 정보
 		
-		//결제 정보 
+		
+		
+		//배송 정보 생략
+		
 		
 		return null;
 	}

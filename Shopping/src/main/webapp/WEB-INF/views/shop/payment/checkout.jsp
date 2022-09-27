@@ -117,6 +117,8 @@
 	                           </div>
 	                       </div>
 	                   </div>
+	                   	<input type="hidden" name="totalbuy" value="<%=total%>"> 
+	           			<input type="hidden" name="totalpay" value="<%=total%>"> 
 	               </form>
 	           </div>
 	       </section>
@@ -136,7 +138,7 @@ function pay(){
 		//위의 정보 말고 포인트, 쿠폰, 배송정보 등 다양한 정보가 있으므로  post로 진행
 		$("#pay-form").attr({
 			action:"/shop/pay",
-			method:"post",
+			method:"post"
 		});
 		$("#pay-form").submit();
 	}
