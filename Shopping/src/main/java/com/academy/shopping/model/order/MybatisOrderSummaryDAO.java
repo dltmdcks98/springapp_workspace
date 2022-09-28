@@ -25,7 +25,7 @@ public class MybatisOrderSummaryDAO implements OrderSummaryDAO {
 	@Override
 	public List selectAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectList("OrderSummary.selectAll");
 	}
 
 	@Override

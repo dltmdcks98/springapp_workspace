@@ -57,7 +57,7 @@ public class OrderSummaryServiceImpl implements OrderSummaryService {
 	@Override
 	public List selectAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return orderSummaryDAO.selectAll();
 	}
 
 	@Override
