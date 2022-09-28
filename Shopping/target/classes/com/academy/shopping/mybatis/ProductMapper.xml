@@ -43,4 +43,7 @@
 		values(seq_product.nextval,#{product_name},#{brand},#{price},#{discount},#{memo},#{detail},#{product_img},#{subcategory.subcategory_id})
 	</insert>
 	
+	<delete id="delete" parameterType="Product">
+		delete from product where product_id=#{prodcut_id}
+	</delete>
 </mapper> 

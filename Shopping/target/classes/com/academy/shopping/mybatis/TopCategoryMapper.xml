@@ -28,4 +28,5 @@
 	<select id="select" parameterType="int" resultType="TopCategory">
 		select * from topcategory where topcategory_id=#{topcategory_id}
 	</select>
+	
 </mapper> 

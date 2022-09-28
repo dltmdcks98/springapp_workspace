@@ -63,6 +63,13 @@ public class FileManager {
 		return file;
 	}
 	
+	//파일 삭제 
+	public boolean removeFile(String path) {
+		File file = new File(path);//지정한 경로의 파일에 대한 객체를 생성
+		
+		return file.delete();
+	}
+	
 	
 	
 	

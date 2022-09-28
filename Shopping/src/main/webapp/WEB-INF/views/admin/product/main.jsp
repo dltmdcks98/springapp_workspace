@@ -81,8 +81,12 @@
                     <tr>
                       <td><%=i %></td>
                       <td><%=product.getSubcategory().getCategory_name() %></td>
-                      <td><img src="/static/data/<%=product.getProduct_img() %>" width="45px" ></td>
-                      <td><a href="/admin/subcategory/<%=product.getProduct_id()%>"><%=product.getProduct_name() %></a></td>
+                      <td>
+	                      <a href="/admin/product/view?product_id=<%=product.getProduct_id()%>">
+	                      	<img src="/static/data/<%=product.getProduct_img() %>" width="45px" >
+	                      </a>
+                      </td>
+                      <td><%=product.getProduct_name() %></td>
                       <td><%=product.getBrand() %></td>
                       <td><%=product.getPrice() %></td>
                       <td><%=product.getDiscount() %></td>

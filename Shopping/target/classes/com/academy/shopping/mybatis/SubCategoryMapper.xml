@@ -25,7 +25,7 @@
 	</select>
 
 <!-- 서브 카테고리 1건 가져오기 -->
-	<select id="select" parameterType="int" resultType="Subcategory">
+	<select id="select" parameterType="int" resultMap="subcategoryMap">
 		select * from subcategory where subcategory_id=#{subcategory_id}
 	</select>
 	

@@ -13,5 +13,5 @@ public interface ProductService {
 	public void regist(Product product, String savePath); //DAO +File Upload
 	public void registByExcel(File file,String ori, String dest);//엑셀파일을 매개변수로 넘김
 	public void update(Product product);
-	public void delete(Product product);
+	public void remove(Product product,String dest);//파일 삭제+DB삭제
 }

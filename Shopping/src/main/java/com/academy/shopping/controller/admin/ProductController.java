@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,13 +51,6 @@ public class ProductController {
 	}
 	
 	
-	//관리자 - 상품 상세 조회
-	@GetMapping("/admin/subcategory/{product_id}")
-	public ModelAndView getDetail(@PathVariable("product_id") int product_id) {
-		ModelAndView mav = new ModelAndView("admin/product/detail");
-		return mav;
-	}
-	
 	@GetMapping("/admin/product/registform")
 	public ModelAndView getRegistForm() {
 		ModelAndView mav = new ModelAndView("admin/product/regist");
@@ -69,6 +63,37 @@ public class ProductController {
 		productService.regist(product,request.getServletContext().getRealPath("/resources/data"));
 		ModelAndView mav = new ModelAndView("redirect:/admin/product/list");
 		return mav;
+	}
+	
+	
+	//관리자 - 상품 상세 조회
+	//@RequestParam() : 디폴트 값을 넣을 수 있다. (defaultValue = "0")= 숫자를 default로 넣으면 String으로 해야함
+	@GetMapping("/admin/product/view")
+	public ModelAndView getDetail(HttpServletRequest request, @RequestParam(defaultValue = "0") int product_id) {
+		ModelAndView mav = new ModelAndView("admin/product/detail");
+		Product product =productService.select(product_id);
+		mav.addObject("product",product);
+		return mav;
+	}
+	
+	
+	@GetMapping("/admin/product/delete")
+	public ModelAndView deleteProduct(HttpServletRequest request, Product product) {
+		
+		String dest = request.getServletContext().getRealPath("/resources/data/"+product.getProduct_img());
+		
+		productService.remove(product,dest); 
+		
+		return null;
+	}
+	
+	//관리자- 상품 수정
+	@PostMapping("/admin/product/edit")
+	public ModelAndView edit(HttpServletRequest request, Product product) {
+
+		productService.update(product);
+		
+		return null;
 	}
 	
 	//관리자 엑셀 등록
@@ -89,6 +114,9 @@ public class ProductController {
 		
 		return mav;
 	}
+	
+	
+	
 	
 	//에러 발생시
 	@ExceptionHandler(UploadException.class)

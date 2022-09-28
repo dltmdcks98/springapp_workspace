@@ -64,6 +64,7 @@ public class ProductServiceImpl implements ProductService{
 	public List selectBySubId(int subcategory_id) {
 		return productDAO.selectBySubId(subcategory_id);
 	}
+	
 	@Override
 	public Product select(int product_id) {
 		// TODO Auto-generated method stub
@@ -161,9 +162,13 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public void delete(Product product) {
+	public void remove(Product product,String dest) {
 		// TODO Auto-generated method stub
+		fileManager.removeFile(dest);//파일 삭제
 		
+		
+		
+		productDAO.delete(product);//db삭제
 	}
 
 }
