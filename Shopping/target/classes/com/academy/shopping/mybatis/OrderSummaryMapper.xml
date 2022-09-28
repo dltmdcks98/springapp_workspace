@@ -8,7 +8,7 @@
 		<result property="totalpay" column="totalpay" />
 		<result property="buydate" column="buydate" />
 		
-		<association 	property="member" 			column="member_id" 			javaType="Member" 	select="Member.select" />
+		<association 	property="member" 			column="member_id" 			javaType="Member" 		select="Member.select" />
 		<association 	property="paymethod" 		column="paymethod_id" 		javaType="Paymethod" 	select="Paymethod.select" />
 		<collection  	property="orderDetailList" 	column="ordersummary_id" 	javaType="java.util.List" ofType="OrderDetail" 	select="OrderDetail.selectByOrderSummaryId" />
 		

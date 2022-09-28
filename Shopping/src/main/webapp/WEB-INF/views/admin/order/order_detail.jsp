@@ -1,10 +1,11 @@
+<%@page import="com.academy.shopping.model.domain.OrderDetail"%>
 <%@page import="com.academy.shopping.model.domain.OrderSummary"%>
 <%@page import="com.academy.shopping.model.domain.Product"%>
 <%@page import="java.util.List"%>
 <%@page import="com.academy.shopping.restcontroller.admin.TopCategoryRestController"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-	 List<OrderSummary> orderSummaryList = (List)request.getAttribute("orderSummaryList");
+	OrderSummary orderSummary = (OrderSummary)request.getAttribute("orderSummary");
 	
 %>
 <!DOCTYPE html>
@@ -47,7 +48,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">주문현황</h3>
+                <h3 class="card-title">주문상세 정보</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -64,31 +65,48 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
+                	<thead>
+                	<tr>
+                		<th>주문번호</th>
+                		<th>주문일시</th>
+                		<th>구매자</th>
+                	</tr>
+                	</thead>
+                	<tbody>
+                		<tr>
+                			<th><%=orderSummary.getOrdersummary_id()%></th>
+                			<th><%=orderSummary.getBuydate() %></th>
+                			<th><%=orderSummary.getMember().getCustomer_name() %></th>
+                		</tr>
+                	</tbody>
+                </table>
+                <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
                       <th>No</th>
+                      <th>상품구분(하위카테고리)</th>
+                      <th>상품이미지</th>
+                      <th>상품명</th>                  
+                      <th>가격</th>
+                      <th>구매개수</th>
                       <th>주문번호</th>
-                      <th>구매자</th>                  
-                      <th>결제방법</th>
-                      <th>총구매금액</th>
-                      <th>총결제금액</th>
                       <th>주문일</th>
         
                     </tr>
                   </thead>
                   <tbody>
-                  <%for(int i=0; i<orderSummaryList.size();i++){ %>
-                  <%OrderSummary orderSummary = orderSummaryList.get(i); %>
+                  <%for(int i=0; i<orderSummary.getOrderDetailList().size();i++){ %>
+                  <%OrderDetail orderDetail = orderSummary.getOrderDetailList().get(i); %>
                     <tr>
                       <td><%=i+1 %></td>
-                      <td><a href="/admin/order/detail?ordersummary_id=<%=orderSummary.getOrdersummary_id() %>"><%=orderSummary.getOrdersummary_id() %></a></td>
-                      <td><%=orderSummary.getMember().getCustomer_name() %></td>
-                      <td><%=orderSummary.getPaymethod().getPayname() %></a></td>
-                      <td><%=orderSummary.getTotalbuy() %></td>
-                      <td><%=orderSummary.getTotalpay() %></td>
+                      <td><%=orderDetail.getProduct().getSubcategory().getCategory_name() %></td>
+                      <td><img width="45px" src="/static/data/<%=orderDetail.getProduct().getProduct_img() %>"></td>
+                      <td><%=orderDetail.getProduct().getProduct_name() %></td>
+                      <td><%=orderDetail.getProduct().getDiscount()%></td>
+                      <td><%=orderDetail.getEa()%></td>
                       <td><%=orderSummary.getBuydate() %></td>
                     </tr>
-                   <%} %>
+                    <%} %>
                   </tbody>
                 </table>
                 

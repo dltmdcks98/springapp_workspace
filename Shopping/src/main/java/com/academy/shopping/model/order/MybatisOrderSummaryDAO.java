@@ -19,7 +19,7 @@ public class MybatisOrderSummaryDAO implements OrderSummaryDAO {
 	@Override
 	public OrderSummary select(int ordersummary_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectOne("OrderSummary.select", ordersummary_id);
 	}
 
 	@Override
