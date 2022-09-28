@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.academy.shopping.exception.FileException;
 import com.academy.shopping.exception.ProductException;
 import com.academy.shopping.exception.UploadException;
 import com.academy.shopping.model.category.SubCategoryDAO;
@@ -161,14 +162,14 @@ public class ProductServiceImpl implements ProductService{
 		
 	}
 
-	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void remove(Product product,String dest) {
 		// TODO Auto-generated method stub
 		fileManager.removeFile(dest);//파일 삭제
 		
 		
-		
 		productDAO.delete(product);//db삭제
+		
 	}
 
 }

@@ -9,6 +9,7 @@ import com.academy.shopping.exception.EmailException;
 import com.academy.shopping.exception.MemberException;
 import com.academy.shopping.exception.OrderDetailException;
 import com.academy.shopping.exception.OrderSummaryException;
+import com.academy.shopping.exception.ProductException;
 
 @ControllerAdvice //Controller 외부에서 나오는 Exception을 처리할 수 있음
 public class GlobalExceptionAspect {
@@ -44,6 +45,13 @@ public class GlobalExceptionAspect {
 	}
 	@ExceptionHandler(EmailException.class)
 	public ModelAndView handleException(EmailException e) {
+		ModelAndView mav = new ModelAndView("shop/error/result");
+		mav.addObject("e",e);
+		
+		return mav;
+	}
+	@ExceptionHandler(ProductException.class)
+	public ModelAndView handleException(ProductException e) {
 		ModelAndView mav = new ModelAndView("shop/error/result");
 		mav.addObject("e",e);
 		

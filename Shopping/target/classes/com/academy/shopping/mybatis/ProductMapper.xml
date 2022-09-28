@@ -44,6 +44,6 @@
 	</insert>
 	
 	<delete id="delete" parameterType="Product">
-		delete from product where product_id=#{prodcut_id}
+		delete from product where product_id=#{product_id}
 	</delete>
 </mapper> 

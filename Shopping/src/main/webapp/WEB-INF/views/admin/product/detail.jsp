@@ -1,6 +1,14 @@
+<%@page import="com.academy.shopping.model.domain.Product"%>
 <%@page import="java.util.List"%>
 <%@page import="com.academy.shopping.model.domain.TopCategory"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%
+	Product product = (Product)request.getAttribute("product");
+
+	//현재 상품의 최상위 카테고리 가져오기
+	int topcategory_id = product.getSubcategory().getTopcategory().getTopcategory_id();
+	out.print(topcategory_id);
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,6 +54,8 @@
         <!-- SELECT2 EXAMPLE -->
         <div class="card card-primary">
         <form>
+        <input type="hidden" name="product_id" value="<%=product.getProduct_id()%>">
+        <input type="hidden" name="product_img" value="<%=product.getProduct_img() %>">
           <div class="card-header">
             <h3 class="card-title">상품 등록</h3>
 
@@ -83,16 +93,17 @@
                    </div>
                 </div>
                <div class="col-md-9">
-	                  <input type="text" name="product_name"class="form-control" placeholder="상품명">
-	                  <input type="text" name="brand" class="form-control" placeholder="브랜드">
-	                  <input type="number" name="price"class="form-control" placeholder="원가격">
-	                  <input type="number"  name="discount" class="form-control" placeholder="할인가격">
-	                  <textarea name="memo" class="form-control" placeholder="간략 설명" ></textarea>
-	                  <textarea name="detail" class="form-control" id="summernote" placeholder="간략 설명"></textarea>
+	                  <input type="text" name="product_name"class="form-control" placeholder="상품명" value="<%=product.getProduct_name()%>">
+	                  <input type="text" name="brand" class="form-control" placeholder="브랜드" value="<%=product.getBrand()%>">
+	                  <input type="number" name="price"class="form-control" placeholder="원가격" value="<%=product.getPrice()%>">
+	                  <input type="number"  name="discount" class="form-control" placeholder="할인가격" value="<%=product.getDiscount()%>">
+	                  <textarea name="memo" class="form-control" placeholder="간략 설명" ><%=product.getMemo() %></textarea>
+	                  <textarea name="detail" class="form-control" id="summernote" placeholder="간략 설명" ><%=product.getDetail()%></textarea>
 	                  <input type="file" class="form-control" placeholder="상품 이미지 선택" name="photo">
 	                  
-	                  <button type="button" class="btn btn-info" onClick="registProduct()">상품등록</button>
-	                  <button type="button" class="btn btn-info" onClick="location.href='/admin/product/list';">목록보기</button>
+	                  <button type="button" class="btn btn-info" onClick="editProduct()">상품수정</button>
+	                  <button type="button" class="btn btn-info" onClick="deleteProduct()">상품삭제</button>
+	                  <button type="button" class="btn btn-info" onClick="location.href='/admin/product/list';">목록</button>
                </div>
               
                 <!-- /.form-group -->
@@ -150,6 +161,10 @@ function printTopList(jsonList){
       tag+="<option value=\""+topcategory.topcategory_id+"\">"+topcategory.category_name+"</option>";
    }
    $(sel).append(tag);
+   
+   //생성된 옵션들을 대상으로 자동 선택효과
+   $(sel).val(<%=topcategory_id%>);
+   getSubList(<%=topcategory_id%>);
 }
 
 //선택한 상위 카테고리에 소속된 하위 목록 가져오기
@@ -175,20 +190,56 @@ function printSubList(jsonList){
       tag+="<option value=\""+subcategory.subcategory_id+"\">"+subcategory.category_name+"</option>";
    }
    $(sel).append(tag);
+   
+   //생성된 옵션들을 대상으로 선택효과
+   $(sel).val(<%=product.getSubcategory().getSubcategory_id()%>);
 }
 
 
 //상품 등록 요청
-function registProduct(){
-	if(confirm("상품을 등록하시겠어요?")){
+function editProduct(){
+	if(confirm("상품을 수정하시겠어요?")){
 		
 		$("form").attr({
-			"action":"/admin/product/regist",
+			"action":"/admin/product/edit",
 			"method":"post",
 			"enctype":"multipart/form-data"
 		});
 		$("form").submit();
 	}
+}
+
+//비동기 전송시, json으로  key-value를 일일이 form을 포기하고 작성하는 것은 너무 불편
+//시리얼화 시켜 편의성을 높이자
+function deleteProduct(){
+	//기존의 form양싱르 전송할 수 있도록 쪼개야한다.(직렬화)
+	var formArray = $("form").serializeArray();
+	
+	for(var i=0;i<formArray.length;i++){
+		console.log(formArray[i].name,"의 컴폰컨트의 값은",formArray[i].value);
+	}
+	//서버에 전송시 json으로 보내기
+	var json = {};
+	//json 동적 생성
+	for(var i=0; i<formArray.length;i++){
+		json[formArray[i].name]=formArray[i].value;
+	}
+	console.log(json);
+	
+  	if(confirm("상품을 삭제하시겠어요?")){
+		$.ajax({
+			url:"/rest/admin/product/delete",
+			type:"post",
+			contentType:"application/json;charset=utf-8",//서버에게 이 자료가 json 형태라는 것을 알려줌
+			data:JSON.stringify(json), //json은 자체로 객체이므로 전송하려면 문자열화 시켜야한다.
+			/* processData:false,// query String화 시키지 않도록 방지 */
+			success:function(result, status, xhr){
+				alert(result);
+				location.href="/admin/product/list";
+			}
+		});
+	} 
+	
 }
 
 $(function(){
@@ -204,6 +255,9 @@ $(function(){
       //alert("당신이 선택한 아이템의 value값은 "+ $(this).val())
       getSubList($(this).val());
    });
+   
+  
+   
 })
 
 </script>
