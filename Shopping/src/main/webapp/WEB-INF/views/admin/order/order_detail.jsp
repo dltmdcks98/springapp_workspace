@@ -102,7 +102,7 @@
                       <td><%=orderDetail.getProduct().getSubcategory().getCategory_name() %></td>
                       <td><img width="45px" src="/static/data/<%=orderDetail.getProduct().getProduct_img() %>"></td>
                       <td><%=orderDetail.getProduct().getProduct_name() %></td>
-                      <td><%=orderDetail.getProduct().getDiscount()%></td>
+                     <td><%=orderDetail.getProduct().getDiscount()%></td>
                       <td><%=orderDetail.getEa()%></td>
                       <td><%=orderSummary.getBuydate() %></td>
                     </tr>

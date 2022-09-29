@@ -195,20 +195,6 @@ function printSubList(jsonList){
    $(sel).val(<%=product.getSubcategory().getSubcategory_id()%>);
 }
 
-
-//상품 등록 요청
-function editProduct(){
-	if(confirm("상품을 수정하시겠어요?")){
-		
-		$("form").attr({
-			"action":"/admin/product/edit",
-			"method":"post",
-			"enctype":"multipart/form-data"
-		});
-		$("form").submit();
-	}
-}
-
 //비동기 전송시, json으로  key-value를 일일이 form을 포기하고 작성하는 것은 너무 불편
 //시리얼화 시켜 편의성을 높이자
 function deleteProduct(){
@@ -242,6 +228,35 @@ function deleteProduct(){
 	
 }
 
+//상품 수정 요청- 비동기 + 파일 업로드
+//FormData - Json만으로 보낼 수 없었던, 바이너리 파일까지도 보낼 수 있다.
+function editProduct(){
+	//기존 폼을 시리얼 : 폼 양식 요소들을 key-value쌍으로 구성하여 배열로 반환
+	var formArray  = $("form").serializeArray();
+	/* console.log(formArray); */
+	//json대신 바이너리 파일을 포함할 수 있는 FormData를 이용
+	var formData = new FormData();
+	/* formData.append(전송파라미터명,전송데이터); */
+	for(var i=0; i<formArray.length;i++){
+		formData.append(formArray[i].name,formArray[i].value);
+	}
+	//특히 input type이 file인 컴포넌트는 텍스트가 아니므로, 실제 선택한 파일을 포함
+	formData.append("photo",$("input[name='photo']")[0].files[0]);
+	
+	//ajax 전송
+	$.ajax({
+		url:"/rest/admin/product/update",
+		type:"post",
+		data:formData,
+		enctype:"multipart/form-data",
+		contentType:false,//문자열화 시킴 방지(바이너리 파일이 포함될 경우 이속성을 false로 해야함)
+		processData:false,//문자열화 시킴 방지(바이너리 파일이 포함될 경우 이속성을 false로 해야함)
+		success:function(result,status,xhr){
+			alert(result);
+		}
+	});
+	
+}
 $(function(){
 	 // Summernote
     $('#summernote').summernote({

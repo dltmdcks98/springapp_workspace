@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.academy.shopping.model.domain.Product;
 import com.academy.shopping.model.product.ProductService;
@@ -32,5 +34,13 @@ public class ProductRestController {
 		ResponseEntity<Message>entity = new ResponseEntity<Message>(message,HttpStatus.OK);
 		
 		return entity;
+	}
+	
+	@PostMapping("/admin/product/update")
+	public ModelAndView update(Product product) {
+		MultipartFile multi=product.getPhoto();
+		String filename= multi.getOriginalFilename();
+		System.out.println("업로드된 파일명은"+filename);
+		return null;
 	}
 }
